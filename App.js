@@ -1,21 +1,46 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import Home from "./app/Components/Home";
+import MainMenu from "./app/Components/MainMenu";
+import EachClickDesc from "./app/Components/EachClickDesc";
 
-export default function App() {
+const Stack = createStackNavigator();
+
+function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="EachClickDesc">
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="Home"
+          component={Home}
+        />
+        <Stack.Screen
+          name="MainMenu"
+          component={MainMenu}
+          options={{
+            headerTitle: "Expense Tracker",
+            headerStyle: {
+              backgroundColor: "#161a1d",
+            },
+            headerTitleStyle: {
+              fontWeight: "bold",
+              textAlign: "center",
+              color: "white",
+            },
+          }}
+        />
+        <Stack.Screen
+          name="EachClickDesc"
+          component={EachClickDesc}
+          options={{
+            headerShown: false,
+          }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
