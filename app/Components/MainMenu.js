@@ -11,6 +11,7 @@ import {
 import { Entypo } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import objectStoringArray from "../data";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 /*
 Red button colors
@@ -44,7 +45,8 @@ var ShowDiv = (props) => {
       <TouchableOpacity
         key={data.key}
         onPress={() => {
-          console.log(data.key)
+          AsyncStorage.getItem("02/01/21")
+          .then((data)=>console.log(data))
           props.navigation.navigate("EachClickDesc",{
             key:data.key,
             title:data.title,

@@ -1,7 +1,11 @@
 import React from "react";
 import { View, Text, StyleSheet, TextInput } from "react-native";
 
-const Title = () => {
+const Title = (props) => {
+  function change(data){
+    props.changeTitle(data);
+  }
+
   const content = (
     <View style={styles.title}>
       <Text
@@ -24,6 +28,8 @@ const Title = () => {
         }}
         multiline={true}
         placeholder="Add a Title"
+        onChangeText={change}
+        value={props.title}
       />
     </View>
   );

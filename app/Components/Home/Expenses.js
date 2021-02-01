@@ -2,7 +2,11 @@ import React from "react";
 import { View, StyleSheet, TextInput, Text } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 
-const Expenses = () => {
+const Expenses = (props) => {
+  function changed(data){
+    props.changeExp(data)
+  }
+
   const content = (
     <View style={styles.expenses}>
       <Text
@@ -30,6 +34,8 @@ const Expenses = () => {
           placeholder="100"
           keyboardType="number-pad"
           multiline={true}
+          value={props.exp}
+          onChangeText={changed}
         />
       </View>
     </View>

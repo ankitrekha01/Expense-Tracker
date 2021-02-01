@@ -1,7 +1,7 @@
 import * as React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-const Transaction = () => {
+const Transaction = (props) => {
   return (
     <View style={styles.transaction}>
       <TouchableOpacity
@@ -13,6 +13,9 @@ const Transaction = () => {
           alignItems: "center",
           borderRightWidth:1,
           borderRightColor:'white'
+        }}
+        onPress={()=>{
+          props.changeTransc('Income')
         }}
       >
         <Text style={{ fontSize: 20,color:'white' }}>Income</Text>
@@ -26,6 +29,9 @@ const Transaction = () => {
           alignItems: "center",
           borderLeftWidth:1,
           borderLeftColor:'white'
+        }}
+        onPress={()=>{
+          props.changeTransc('Expenses')
         }}
       >
         <Text style={{ fontSize: 20,color:'white' }}>Expenses</Text>

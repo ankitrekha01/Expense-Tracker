@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   StyleSheet,
@@ -17,11 +17,17 @@ import Transaction from "./Home/transaction";
 import { Ionicons } from "@expo/vector-icons";
 
 const Home = ({ navigation }) => {
+  const [title, changeTitle] = useState("");
+  const [desc, changeDesc] = useState("");
+  const [exp, changeExp] = useState("");
+  const [transc, changeTransc] = useState("");
+  const [date, setDate] = useState(new Date());
+
   const content = (
     <View style={styles.home}>
       <View>
         <TouchableOpacity
-        onPress={()=>navigation.navigate("MainMenu")}
+          onPress={() => navigation.navigate("MainMenu")}
           style={{
             height: 40,
             flexDirection: "row",
@@ -46,12 +52,19 @@ const Home = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <Title />
-        <DatePicker />
-        <Expenses />
-        <Description />
-        <Transaction />
-        <Submit />
+        <Title title={title} changeTitle={changeTitle} />
+        <DatePicker date={date} setDate={setDate} />
+        <Expenses exp={exp} changeExp={changeExp} />
+        <Description desc={desc} changeDesc={changeDesc} />
+        <Transaction transc={transc} changeTransc={changeTransc} />
+        <Submit
+          navigation={navigation}
+          title={title}
+          date={date}
+          exp={exp}
+          desc={desc}
+          transc={transc}
+        />
       </ScrollView>
     </View>
   );

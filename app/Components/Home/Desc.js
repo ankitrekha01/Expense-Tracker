@@ -2,7 +2,10 @@ import React from "react";
 import { View, StyleSheet, TextInput, Text } from "react-native";
 
 
-const Description = () => {
+const Description = (props) => {
+  function changed(data){
+    props.changeDesc(data)
+  }
   const content = (
     <View style={styles.desc}>
         <Text
@@ -27,6 +30,8 @@ const Description = () => {
         multiline={true}
         numberOfLines={6}
         placeholder="Add a Description"
+        onChangeText={changed}
+        value={props.desc}
       />
     </View>
   );

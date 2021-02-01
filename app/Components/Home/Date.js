@@ -9,15 +9,14 @@ import {
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Foundation } from "@expo/vector-icons";
 
-const DatePicker = () => {
-  const [date, setDate] = useState(new Date());
+const DatePicker = (props) => {
   const [show, setShow] = useState(false);
   const [startDateColor, setSDC] = useState(false)
 
   const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
+    const currentDate = selectedDate || props.date;
     setShow(Platform.OS === "ios");
-    setDate(currentDate);
+    props.setDate(currentDate);
   };
 
   const showMode = (currentMode) => {
@@ -43,7 +42,7 @@ const DatePicker = () => {
       <View style={styles.container}>
         <Text style={{ fontSize: 18,color:startDateColor?'black':'grey' }}>
           {
-            date.toLocaleDateString() /* todatstring needed to be added else was giving error  */
+            props.date.toLocaleDateString() /* todatstring needed to be added else was giving error  */
           }
         </Text>
         <TouchableOpacity onPress={showDatepicker}>
@@ -53,7 +52,7 @@ const DatePicker = () => {
       {show && (
         <DateTimePicker
           testID="dateTimePicker"
-          value={date}
+          value={props.date}
           mode="date"
           is24Hour={true}
           display="default"
