@@ -5,7 +5,7 @@ const objectStoringArray = [
     date: "27/02/2020",
     expenses: "100",
     description: "a",
-    used: "credit",
+    used: "credit"
   },
   {
     key: "2",
