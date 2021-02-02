@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import ShowDiv from "./MainMenu/showDiv";
-import AddInfo from "./MainMenu/AddInfo"
+import AddInfo from "./MainMenu/AddInfo";
 /*
 Red button colors
 #0b3954

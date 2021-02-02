@@ -1,16 +1,22 @@
 import React from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import objectStoringArray from "../../data";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+let keys = [];
+const getAllKeys = () => {
+  AsyncStorage.getAllKeys().then((data)=>{
+      keys=data;
+  })
+  return keys;
+};
 
 const ShowDiv = (props) => {
   /* bind(this,data.key)  gives directly the key of the component 
-            which we click basics of react native
-                    click.bind(this, data.key)
-          */
+    which we click basics of react native
+    click.bind(this, data.key)
+  */
+ console.log(getAllKeys())
   return objectStoringArray.reverse().map((data) => {
     return (
       <TouchableOpacity
