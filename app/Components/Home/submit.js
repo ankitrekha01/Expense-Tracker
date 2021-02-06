@@ -1,24 +1,24 @@
 import React from "react";
 import { TouchableOpacity, StyleSheet, View, Text } from "react-native";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Submit = (props) => {
   const redirect = () => {
-    const storeData = async () =>{
-      try{
+    const storeData = async () => {
+      try {
         const jsonValue = JSON.stringify({
-          title:props.title,
-          date:props.date.toLocaleDateString(),
-          desc:props.desc,
-          exp:props.exp,
-          transc:props.transc
-        })
-        await AsyncStorage.setItem(props.date.toLocaleDateString(),jsonValue)
-        console.log('working')
-      }catch(e){
-        console.log("Not working")
+          title: props.title,
+          date: props.date.toLocaleDateString(),
+          desc: props.desc,
+          exp: props.exp,
+          transc: props.transc,
+        });
+        await AsyncStorage.setItem(props.date.toLocaleDateString(), jsonValue);
+        console.log("working");
+      } catch (e) {
+        console.log("Not working");
       }
-    }
+    };
     storeData();
   };
 

@@ -1,12 +1,7 @@
-import React from "react";
-import {
-  View,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-} from "react-native";
-import ShowDiv from "./MainMenu/showDiv";
+import React, { useEffect, useState } from "react";
+import { View, ScrollView, Text, TouchableOpacity } from "react-native";
 import AddInfo from "./MainMenu/AddInfo";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 /*
 Red button colors
 #0b3954
@@ -28,6 +23,23 @@ Green
 // };
 
 const MainMenu = ({ navigation }) => {
+  const [storedData, setStoredData] = useState("");
+  useEffect(() => {
+    AsyncStorage.getAllKeys().then((data) => {
+      if (JSON.stringify(storedData) !== JSON.stringify(data)) {
+        setStoredData(data);
+      }
+    });
+  }, [storedData]);
+
+  function data() {
+    let arrayData = [];
+    for (var i = 0; i < storedData.length; i++) {
+      arrayData.push(storedData[i]);
+    }
+    return arrayData.reverse();
+  }
+
   const content = (
     <View
       style={{
@@ -35,7 +47,44 @@ const MainMenu = ({ navigation }) => {
       }}
     >
       <ScrollView>
-        <ShowDiv navigation={navigation}/>
+        <View>
+          {data().map((dateKey) => {
+            return (
+              <TouchableOpacity
+                key={dateKey}
+                onPress={() => {
+                  navigation.navigate("EachClickDesc", {
+                    key: dateKey,
+                  });
+                }}
+              >
+                <View
+                  style={{
+                    backgroundColor: "#80ed99",
+                    height: 80,
+                    borderBottomWidth: 5,
+                    borderBottomColor: "white",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <View style={{ justifyContent: "center" }}>
+                    <Text
+                      style={{
+                        fontSize: 15,
+                        paddingStart: 20,
+                        color: "#38a3a5",
+                        marginTop: 5,
+                      }}
+                    >
+                      {dateKey}
+                    </Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            );
+          })}
+        </View>
       </ScrollView>
       <AddInfo navigation={navigation} />
     </View>

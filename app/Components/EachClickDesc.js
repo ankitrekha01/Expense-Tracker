@@ -16,8 +16,8 @@ const EachClickDesc = ({ route, navigation }) => {
   const content = (
     <View style={styles.container}>
       <ScrollView>
-        <HeaderTitle />
-        <DetailDesc />
+        <HeaderTitle route={route} navigation={navigation} />
+        <DetailDesc route={route} navigation={navigation} />
       </ScrollView>
     </View>
   );
