@@ -1,7 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { View, ScrollView, Text, TouchableOpacity } from "react-native";
+import {
+  View,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  Animated,
+  StyleSheet,
+} from "react-native";
 import AddInfo from "./MainMenu/AddInfo";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Swipeable from "react-native-gesture-handler/Swipeable";
+import { RectButton } from "react-native-gesture-handler";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 /*
 Red button colors
 #0b3954
@@ -49,39 +59,62 @@ const MainMenu = ({ navigation }) => {
       <ScrollView>
         <View>
           {data().map((dateKey) => {
+            renderRightActions = (progress) => {
+              return (
+                <RectButton style={{
+                  width:'20%',
+                  justifyContent:'center',
+                  alignContent:'center',
+                  alignItems:'center',
+                  backgroundColor:'red',
+                  borderBottomWidth: 5,
+                  borderBottomColor: "white",
+                }} >
+                  <Animated.Text>
+                    <MaterialCommunityIcons
+                      name="delete"
+                      size={50}
+                      color="white"
+                    />
+                  </Animated.Text>
+                </RectButton>
+              );
+            };
             return (
-              <TouchableOpacity
-                key={dateKey}
-                onPress={() => {
-                  navigation.navigate("EachClickDesc", {
-                    key: dateKey,
-                  });
-                }}
-              >
-                <View
-                  style={{
-                    backgroundColor: "#80ed99",
-                    height: 80,
-                    borderBottomWidth: 5,
-                    borderBottomColor: "white",
-                    flexDirection: "row",
-                    justifyContent: "space-between",
+              <Swipeable key={dateKey} renderRightActions={renderRightActions}>
+                <TouchableOpacity
+                  key={dateKey}
+                  onPress={() => {
+                    navigation.navigate("EachClickDesc", {
+                      key: dateKey,
+                    });
                   }}
                 >
-                  <View style={{ justifyContent: "center" }}>
-                    <Text
-                      style={{
-                        fontSize: 15,
-                        paddingStart: 20,
-                        color: "#38a3a5",
-                        marginTop: 5,
-                      }}
-                    >
-                      {dateKey}
-                    </Text>
+                  <View
+                    style={{
+                      backgroundColor: "#80ed99",
+                      height: 80,
+                      borderBottomWidth: 5,
+                      borderBottomColor: "white",
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <View style={{ justifyContent: "center" }}>
+                      <Text
+                        style={{
+                          fontSize: 15,
+                          paddingStart: 20,
+                          color: "#38a3a5",
+                          marginTop: 5,
+                        }}
+                      >
+                        {dateKey}
+                      </Text>
+                    </View>
                   </View>
-                </View>
-              </TouchableOpacity>
+                </TouchableOpacity>
+              </Swipeable>
             );
           })}
         </View>
