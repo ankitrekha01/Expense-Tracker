@@ -34,7 +34,7 @@ Green
 
 const MainMenu = ({ navigation }) => {
   const [storedData, setStoredData] = useState("");
-  const [RemovedKey,setRemovedKey] = useState(0)
+  const [RemovedKey,setRemovedKey] = useState(0); /* this was added so that in real time, when we remove a day, its removed from the menu */
   useEffect(() => {
     AsyncStorage.getAllKeys().then((data) => {
       if (JSON.stringify(storedData) !== JSON.stringify(data)) {
@@ -44,6 +44,7 @@ const MainMenu = ({ navigation }) => {
   }, [storedData,RemovedKey]);
 
   function data() {
+    /* this was made because the state array was not working */
     let arrayData = [];
     for (var i = 0; i < storedData.length; i++) {
       arrayData.push(storedData[i]);
