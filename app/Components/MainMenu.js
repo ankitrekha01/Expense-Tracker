@@ -34,13 +34,14 @@ Green
 
 const MainMenu = ({ navigation }) => {
   const [storedData, setStoredData] = useState("");
+  const [RemovedKey,setRemovedKey] = useState(0)
   useEffect(() => {
     AsyncStorage.getAllKeys().then((data) => {
       if (JSON.stringify(storedData) !== JSON.stringify(data)) {
         setStoredData(data);
       }
     });
-  }, [storedData]);
+  }, [storedData,RemovedKey]);
 
   function data() {
     let arrayData = [];
@@ -48,6 +49,12 @@ const MainMenu = ({ navigation }) => {
       arrayData.push(storedData[i]);
     }
     return arrayData.reverse();
+  }
+
+  function removeItem(key) {
+    console.log(key);
+    AsyncStorage.removeItem(key)
+    setRemovedKey(key)
   }
 
   const content = (
@@ -61,15 +68,21 @@ const MainMenu = ({ navigation }) => {
           {data().map((dateKey) => {
             renderRightActions = (progress) => {
               return (
-                <RectButton style={{
-                  width:'20%',
-                  justifyContent:'center',
-                  alignContent:'center',
-                  alignItems:'center',
-                  backgroundColor:'red',
-                  borderBottomWidth: 5,
-                  borderBottomColor: "white",
-                }} >
+                <TouchableOpacity
+                  style={{
+                    height: 80,
+                    width: "20%",
+                    justifyContent: "center",
+                    alignContent: "center",
+                    alignItems: "center",
+                    backgroundColor: "red",
+                    borderBottomWidth: 5,
+                    borderBottomColor: "white",
+                  }}
+                  onPress={()=>{
+                    removeItem(dateKey)
+                  }}
+                >
                   <Animated.Text>
                     <MaterialCommunityIcons
                       name="delete"
@@ -77,7 +90,7 @@ const MainMenu = ({ navigation }) => {
                       color="white"
                     />
                   </Animated.Text>
-                </RectButton>
+                </TouchableOpacity>
               );
             };
             return (
@@ -96,22 +109,18 @@ const MainMenu = ({ navigation }) => {
                       height: 80,
                       borderBottomWidth: 5,
                       borderBottomColor: "white",
-                      flexDirection: "row",
-                      justifyContent: "space-between",
+                      justifyContent: "center",
                     }}
                   >
-                    <View style={{ justifyContent: "center" }}>
-                      <Text
-                        style={{
-                          fontSize: 15,
-                          paddingStart: 20,
-                          color: "#38a3a5",
-                          marginTop: 5,
-                        }}
-                      >
-                        {dateKey}
-                      </Text>
-                    </View>
+                    <Text
+                      style={{
+                        fontSize: 25,
+                        color: "#38a3a5",
+                        textAlign: "center",
+                      }}
+                    >
+                      {dateKey}
+                    </Text>
                   </View>
                 </TouchableOpacity>
               </Swipeable>
