@@ -42,19 +42,19 @@ const HeaderTitle = (props) => {
                 textAlign:'center'
               }}
             >
-              Title
+              {props.eachDetail.title}
             </Text>
           </View>
           <View>
             <Text
               style={{
                 fontSize: 45,
-                color:'green',
+                color:props.eachDetail.transc=="Income"?'#aaf683':'#ee6055',
                 marginBottom:40,
                 fontWeight:'bold',
               }}
             >
-              ₹5000
+              ₹{props.eachDetail.exp}
             </Text>
           </View>
         </View>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   StyleSheet,
@@ -8,16 +8,24 @@ import {
   StatusBar,
   Platform,
 } from "react-native";
-import data from "../data";
 import HeaderTitle from "./EachClickDesc/headerTitle";
 import DetailDesc from "./EachClickDesc/detailDesc";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const EachClickDesc = ({ route, navigation }) => {
+  const [eachDetail, setEachDetail] = useState("");
+  const keyForStorage = route.params.key;
+  const a = AsyncStorage.getItem(keyForStorage);
+  a.then((e) => {
+    setEachDetail(JSON.parse(e));
+  });
+
   const content = (
     <View style={styles.container}>
       <ScrollView>
-        <HeaderTitle route={route} navigation={navigation} />
-        <DetailDesc route={route} navigation={navigation} />
+        <HeaderTitle route={route} navigation={navigation} eachDetail={eachDetail} />
+        <DetailDesc route={route} navigation={navigation} eachDetail={eachDetail} />
       </ScrollView>
     </View>
   );
