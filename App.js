@@ -5,6 +5,7 @@ import { View, StyleSheet, } from 'react-native';
 import Home from "./app/Components/Home";
 import MainMenu from "./app/Components/MainMenu";
 import EachClickDesc from "./app/Components/EachClickDesc";
+import StartScreen from "./app/Components/StartScreen";
 
 import { FontAwesome } from '@expo/vector-icons';
 
@@ -14,6 +15,11 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen 
+          name='StartScreen'
+          component={StartScreen}
+          options={{ headerShown:false}}
+        />
         <Stack.Screen
           name="Home"
           component={Home}
