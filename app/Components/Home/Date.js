@@ -6,7 +6,7 @@ import {
   Platform,
   TouchableOpacity,
 } from "react-native";
-import DateTimePicker from "@react-native-community/datetimepicker";
+import DateTimePicker from "@react-native-community/datetimepicker"; //Calendar 
 import { Foundation } from "@expo/vector-icons";
 
 const DatePicker = (props) => {
