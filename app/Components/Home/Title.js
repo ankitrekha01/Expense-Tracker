@@ -15,7 +15,6 @@ const Title = (props) => {
   function change(data){
     props.changeTitle(data);
   }
-
   const content = (
     <View style={styles.title}>
       <Text

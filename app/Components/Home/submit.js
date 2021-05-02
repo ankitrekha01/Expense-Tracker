@@ -20,25 +20,25 @@ const Submit = (props) => {
         console.log("Not working");
       }
     };
-    
+
     if (
-      props.title=='' ||
-      props.exp=='' ||
-      props.transc=='' ||
-      props.desc==''
+      props.title == "" ||
+      props.exp == "" ||
+      props.transc == "" ||
+      props.desc == ""
     ) {
-      props.changeSubmit(true)
-    }
-    else{
+      props.changeSubmit(true);
+    } else {
       storeData();
-      props.navigation.navigate('MainMenu')
-    }
       /*After submitting setting the states to null, so that when again we enter new info,
     it is empty which helps in onFocus funtion*/
-    props.changeTitle("");
-    props.changeExp("");
-    props.changeTransc("");
-    props.changeDesc("");
+      props.changeTitle("");
+      props.changeExp("");
+      props.changeTransc("");
+      props.changeDesc("");
+      props.changeSubmit(false);
+      props.navigation.navigate("MainMenu");
+    }
   };
 
   const content = (
