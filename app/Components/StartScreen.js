@@ -1,8 +1,8 @@
 //Incomplete
 
 import React, { useRef } from 'react';
-import {View , StyleSheet, Animated, Text, Image, Dimensions} from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import {View , StyleSheet, Animated, Text, Image, Dimensions,TouchableOpacity} from 'react-native';
+
 
 import image from '../Components/images.jpg';
 

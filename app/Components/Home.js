@@ -64,6 +64,11 @@ const Home = ({ navigation }) => {
           exp={exp}
           desc={desc}
           transc={transc}
+          changeTitle={changeTitle}
+          setDate={setDate}
+          changeExp={changeExp}
+          changeTransc={changeTransc}
+          changeDesc={changeDesc}
         />
       </ScrollView>
     </View>

@@ -4,6 +4,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Submit = (props) => {
   const redirect = () => {
+
+    //Storing data
     const storeData = async () => {
       try {
         const jsonValue = JSON.stringify({
@@ -20,6 +22,14 @@ const Submit = (props) => {
       }
     };
     storeData();
+
+    /*After submitting setting the states to null, so that when again we enter new info,
+    it is empty which helps in onFocus funtion*/
+    props.changeTitle("");
+    props.changeExp("");
+    props.changeTransc("")
+    props.changeDesc("")
+    
   };
 
   const content = (
