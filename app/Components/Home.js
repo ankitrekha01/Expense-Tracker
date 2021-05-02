@@ -22,6 +22,7 @@ const Home = ({ navigation }) => {
   const [exp, changeExp] = useState("");
   const [transc, changeTransc] = useState("");
   const [date, setDate] = useState(new Date());
+  const [submit, changeSubmit] = useState(false);
 
   const content = (
     <View style={styles.home}>
@@ -52,13 +53,15 @@ const Home = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <Title title={title} changeTitle={changeTitle} />
+        <Title title={title} changeTitle={changeTitle} submit = {submit} />
         <DatePicker date={date} setDate={setDate} />
-        <Expenses exp={exp} changeExp={changeExp} />
-        <Description desc={desc} changeDesc={changeDesc} />
-        <Transaction transc={transc} changeTransc={changeTransc} />
+        <Expenses exp={exp} changeExp={changeExp} submit = {submit} />
+        <Description desc={desc} changeDesc={changeDesc} submit = {submit} />
+        <Transaction transc={transc} changeTransc={changeTransc} submit = {submit} />
         <Submit
           navigation={navigation}
+          submit = {submit}
+          changeSubmit = {changeSubmit}
           title={title}
           date={date}
           exp={exp}

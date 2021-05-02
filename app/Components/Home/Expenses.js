@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, TextInput, Text } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 
 const Expenses = (props) => {
-  function changed(data){
-    props.changeExp(data)
+  const [colorBorder, changeColor] = useState(false);
+
+  function changed(data) {
+    props.changeExp(data);
+  }
+
+  const borderColorFocus = () => {
+    changeColor(true);
+  };
+
+  const borderColorBlur = () =>{
+    changeColor(false)
   }
 
   const content = (
@@ -14,15 +24,25 @@ const Expenses = (props) => {
           alignItems: "center",
           fontSize: 25,
           alignSelf: "flex-start",
+          color:props.submit && props.exp=='' ? '#dc3545' : "black",
+          fontWeight:props.submit && props.exp=='' ? 'bold' : 'normal'
         }}
       >
         Expenses
       </Text>
-      <View style={styles.input}>
+      <View
+        style={{
+          height: 50,
+          flexDirection: "row",
+          width: "95%",
+          borderWidth: 1,
+          borderColor: colorBorder ? "#2580f0" : "black",
+        }}
+      >
         <FontAwesome
           name="rupee"
           size={24}
-          color="#495057"
+          color= {colorBorder ? "#2580f0" : "#495057"}
           style={{ paddingTop: 13, paddingLeft: 8 }}
         />
         <TextInput
@@ -36,6 +56,8 @@ const Expenses = (props) => {
           multiline={true}
           value={props.exp}
           onChangeText={changed}
+          onFocus={borderColorFocus}
+          onBlur={borderColorBlur}
         />
       </View>
     </View>
@@ -48,12 +70,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingStart: 20,
   },
-  input: {
-    height: 50,
-    flexDirection: "row",
-    width: "95%",
-    borderWidth: 1,
-  },
+  input: {},
 });
 
 export default Expenses;

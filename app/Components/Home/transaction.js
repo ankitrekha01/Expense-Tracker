@@ -1,4 +1,4 @@
-import * as React from "react";
+import React,{ useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 const Transaction = (props) => {
@@ -8,11 +8,13 @@ const Transaction = (props) => {
         style={{
           height: 40,
           width: "50%",
-          backgroundColor: "#343a40",
+          backgroundColor: props.transc=="Income"?"#28a745":"#343a40",
           justifyContent: "center",
           alignItems: "center",
           borderRightWidth:1,
-          borderRightColor:'white'
+          borderRightColor:'white',
+          borderColor:props.submit && props.transc=='' ?"#dc3545":null,
+          borderWidth:props.submit && props.transc=='' ?3:0
         }}
         onPress={()=>{
           props.changeTransc('Income')
@@ -24,11 +26,13 @@ const Transaction = (props) => {
         style={{
           height: 40,
           width: "50%",
-          backgroundColor: "#343a40",
+          backgroundColor: props.transc=="Expenses"? "#dc3545" : "#343a40",
           justifyContent: "center",
           alignItems: "center",
           borderLeftWidth:1,
-          borderLeftColor:'white'
+          borderLeftColor:'white',
+          borderColor:props.submit && props.transc=='' ?"#dc3545":null,
+          borderWidth:props.submit && props.transc=='' ?3:0
         }}
         onPress={()=>{
           props.changeTransc('Expenses')

@@ -1,7 +1,17 @@
-import React from "react";
+import React,{useState} from "react";
 import { View, Text, StyleSheet, TextInput } from "react-native";
 
 const Title = (props) => {
+  const [colorBorder, changeColor] = useState(false);
+
+  const borderColorFocus = () => {
+    changeColor(true);
+  };
+
+  const borderColorBlur = () =>{
+    changeColor(false)
+  }
+
   function change(data){
     props.changeTitle(data);
   }
@@ -13,6 +23,8 @@ const Title = (props) => {
           alignItems: "center",
           fontSize: 25,
           alignSelf: "flex-start",
+          color:props.submit && props.title=='' ? '#dc3545' : "black",
+          fontWeight:props.submit && props.title=='' ? 'bold' : 'normal'
         }}
       >
         Title
@@ -25,11 +37,14 @@ const Title = (props) => {
           fontSize: 18,
           paddingStart: 10, //InnerText gets padded
           marginTop: 10,
+          borderColor: colorBorder ? "#2580f0" : "black",
         }}
         multiline={true}
         placeholder="Add a Title"
         onChangeText={change}
         value={props.title}
+        onFocus={borderColorFocus}
+        onBlur={borderColorBlur}
       />
     </View>
   );
