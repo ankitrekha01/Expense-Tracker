@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Animated,
   StyleSheet,
+  Pressable,
 } from "react-native";
 import AddInfo from "./MainMenu/AddInfo";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -45,32 +46,47 @@ const MainMenu = ({ navigation }) => {
     });
   }, [storedData, RemovedKey]);
 
-
   //Removing the month duplicates and making an array of it, to use it render months
   var getMonth = () => {
     let arrayData = [];
-    let k=0;
+    let k = 0;
     for (var i = 0; i < storedData.length; i++) {
-      k = new Date(storedData[i]).getMonth()
-      arrayData.push(k)
+      k = new Date(storedData[i]).getMonth();
+      arrayData.push(k);
     }
+    //To remove the duplicates in an array
     let uniqueArrayData = arrayData.filter((c, index) => {
       return arrayData.indexOf(c) === index;
-  });
-    return uniqueArrayData;
+    });
+    return uniqueArrayData.sort();
   };
 
-
-  
-  function data() {
-    /* this was made because the state array was not working */
+  //To get the years
+  var getYear = () => {
     let arrayData = [];
+    let k = 0;
     for (var i = 0; i < storedData.length; i++) {
-      arrayData.push(storedData[i]);
+      k = new Date(storedData[i]).getFullYear();
+      arrayData.push(k);
     }
-    console.log(arrayData);
-    return arrayData.reverse();
-  }
+    //To remove the duplicates in an array
+    let uniqueArrayData = arrayData.filter((c, index) => {
+      return arrayData.indexOf(c) === index;
+    });
+    uniqueArrayData = [
+      2016,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026,
+      2027,
+    ];
+    return uniqueArrayData.sort();
+  };
 
   function removeItem(key) {
     console.log(key);
@@ -84,68 +100,56 @@ const MainMenu = ({ navigation }) => {
         height: "100%",
       }}
     >
+      {/* Container for year */}
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "row",
+          width: "80%",
+          alignSelf: "center",
+        }}
+      >
+        <ScrollView
+          style={{
+            width: "80%",
+            height: "15%",
+            backgroundColor: "lightblue",
+          }}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+        >
+          {getYear().map((datakey) => {
+            return (
+              <TouchableOpacity>
+                <View
+                  key={datakey}
+                  style={{
+                    height:'100%',
+                    width: 100,
+                    backgroundColor: "lightgreen",
+                    paddingStart: 10,
+                    alignItems: "center",
+                  }}
+                >
+                  <Text style={{ fontSize: 25 }}>{datakey}</Text>
+                </View>
+              </TouchableOpacity>
+            );
+          })}
+        </ScrollView>
+      </View>
+
       <ScrollView>
         <View>
-          {data().map((dateKey) => {
-            console.log(getMonth())
-            var renderRightActions = (progress) => {
-              return (
-                <TouchableOpacity
-                  style={{
-                    height: 80,
-                    width: "20%",
-                    justifyContent: "center",
-                    alignContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "red",
-                    borderBottomWidth: 5,
-                    borderBottomColor: "white",
-                  }}
-                  onPress={() => {
-                    removeItem(dateKey);
-                  }}
-                >
-                  <Animated.Text>
-                    <MaterialCommunityIcons
-                      name="delete"
-                      size={50}
-                      color="white"
-                    />
-                  </Animated.Text>
-                </TouchableOpacity>
-              );
-            };
+          {getMonth().map((dateKey) => {
             return (
-              <Swipeable key={dateKey} renderRightActions={renderRightActions}>
-                <TouchableOpacity
-                  key={dateKey}
-                  onPress={() => {
-                    navigation.navigate("EachClickDesc", {
-                      key: dateKey,
-                    });
-                  }}
-                >
-                  <View
-                    style={{
-                      backgroundColor: "#80ed99",
-                      height: 80,
-                      borderBottomWidth: 5,
-                      borderBottomColor: "white",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <Text
-                      style={{
-                        fontSize: 25,
-                        color: "#38a3a5",
-                        textAlign: "center",
-                      }}
-                    >
-                      {dateKey}
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              </Swipeable>
+              <View
+                style={{
+                  backgroundColor: "black",
+                }}
+              >
+                <Pressable></Pressable>
+              </View>
             );
           })}
         </View>
