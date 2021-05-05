@@ -10,7 +10,6 @@ import {
 import AddInfo from "./MainMenu/AddInfo";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Swipeable from "react-native-gesture-handler/Swipeable";
-import { RectButton } from "react-native-gesture-handler";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 /*
 Red button colors
@@ -34,7 +33,9 @@ Green
 
 const MainMenu = ({ navigation }) => {
   const [storedData, setStoredData] = useState("");
-  const [RemovedKey,setRemovedKey] = useState(0); /* this was added so that in real time, when we remove a day, its removed from the menu  */
+  const [RemovedKey, setRemovedKey] = useState(
+    0
+  ); /* this was added so that in real time, when we remove a day, its removed from the menu  */
 
   useEffect(() => {
     AsyncStorage.getAllKeys().then((data) => {
@@ -42,21 +43,39 @@ const MainMenu = ({ navigation }) => {
         setStoredData(data);
       }
     });
-  }, [storedData,RemovedKey]);
+  }, [storedData, RemovedKey]);
 
+
+  //Removing the month duplicates and making an array of it, to use it render months
+  var getMonth = () => {
+    let arrayData = [];
+    let k=0;
+    for (var i = 0; i < storedData.length; i++) {
+      k = new Date(storedData[i]).getMonth()
+      arrayData.push(k)
+    }
+    let uniqueArrayData = arrayData.filter((c, index) => {
+      return arrayData.indexOf(c) === index;
+  });
+    return uniqueArrayData;
+  };
+
+
+  
   function data() {
     /* this was made because the state array was not working */
     let arrayData = [];
     for (var i = 0; i < storedData.length; i++) {
       arrayData.push(storedData[i]);
     }
+    console.log(arrayData);
     return arrayData.reverse();
   }
 
   function removeItem(key) {
     console.log(key);
-    AsyncStorage.removeItem(key)
-    setRemovedKey(key)
+    AsyncStorage.removeItem(key);
+    setRemovedKey(key);
   }
 
   const content = (
@@ -68,7 +87,8 @@ const MainMenu = ({ navigation }) => {
       <ScrollView>
         <View>
           {data().map((dateKey) => {
-            renderRightActions = (progress) => {
+            console.log(getMonth())
+            var renderRightActions = (progress) => {
               return (
                 <TouchableOpacity
                   style={{
@@ -81,8 +101,8 @@ const MainMenu = ({ navigation }) => {
                     borderBottomWidth: 5,
                     borderBottomColor: "white",
                   }}
-                  onPress={()=>{
-                    removeItem(dateKey)
+                  onPress={() => {
+                    removeItem(dateKey);
                   }}
                 >
                   <Animated.Text>

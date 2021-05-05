@@ -9,12 +9,14 @@ const Submit = (props) => {
       try {
         const jsonValue = JSON.stringify({
           title: props.title,
+          month:props.date.getMonth(),
           date: props.date.toLocaleDateString(),
+          time:props.date.toLocaleTimeString(),
           desc: props.desc,
           exp: props.exp,
           transc: props.transc,
         });
-        await AsyncStorage.setItem(props.date.toLocaleDateString(), jsonValue);
+        await AsyncStorage.setItem(props.date.toLocaleString(), jsonValue);
         console.log("working");
       } catch (e) {
         console.log("Not working");
