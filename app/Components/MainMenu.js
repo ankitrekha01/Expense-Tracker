@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   View,
   ScrollView,
@@ -7,6 +7,7 @@ import {
   Animated,
   StyleSheet,
   Pressable,
+  FlatList,
 } from "react-native";
 import AddInfo from "./MainMenu/AddInfo";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -33,10 +34,10 @@ Green
 // };
 
 const MainMenu = ({ navigation }) => {
+  const scrollViewRef = useRef();
   const [storedData, setStoredData] = useState("");
-  const [RemovedKey, setRemovedKey] = useState(
-    0
-  ); /* this was added so that in real time, when we remove a day, its removed from the menu  */
+  const [RemovedKey, setRemovedKey] = useState(0); 
+  /* this was added so that in real time, when we remove a day, its removed from the menu  */
 
   useEffect(() => {
     AsyncStorage.getAllKeys().then((data) => {
@@ -58,6 +59,7 @@ const MainMenu = ({ navigation }) => {
     let uniqueArrayData = arrayData.filter((c, index) => {
       return arrayData.indexOf(c) === index;
     });
+    uniqueArrayData = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
     return uniqueArrayData.sort();
   };
 
@@ -117,22 +119,22 @@ const MainMenu = ({ navigation }) => {
           }}
           horizontal={true}
           showsHorizontalScrollIndicator={false}
+          // contentOffset={{ x: 1000 }} not working thus used below code
+          ref={scrollViewRef}
+          onContentSizeChange={() => scrollViewRef.current.scrollToEnd({ animated: true })}
         >
           {getYear().map((datakey) => {
             return (
-              <TouchableOpacity>
-                <View
-                  key={datakey}
-                  style={{
-                    height:'100%',
-                    width: 100,
-                    backgroundColor: "lightgreen",
-                    paddingStart: 10,
-                    alignItems: "center",
-                  }}
-                >
-                  <Text style={{ fontSize: 25 }}>{datakey}</Text>
-                </View>
+              <TouchableOpacity
+                key={datakey}
+                style={{
+                  height: "100%",
+                  width: 100,
+                  backgroundColor: "lightgreen",
+                  alignItems: "center",
+                }}
+              >
+                <Text style={{ fontSize: 25 }}>{datakey}</Text>
               </TouchableOpacity>
             );
           })}
