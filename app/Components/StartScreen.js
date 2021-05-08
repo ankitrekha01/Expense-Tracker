@@ -31,7 +31,7 @@ function StartScreen({ navigation }) {
             >
                 <Image source={image} style={styles.image} />
                 <TouchableOpacity 
-                    onPress={()=>navigation.navigate("Home")}
+                    onPress={()=>navigation.navigate("MainMenu")}
                 >
                     <Text style={styles.imageText}> Expense Tracker </Text>
                 </TouchableOpacity>

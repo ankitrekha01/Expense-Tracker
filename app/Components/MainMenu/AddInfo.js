@@ -10,7 +10,7 @@ const AddInfo = (props) => {
   return (
     <View
       style={{
-        position: "absolute",
+        position: 'absolute',
         justifyContent: "center",
         alignItems: "flex-end",
         bottom: 0,
