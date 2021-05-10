@@ -262,6 +262,8 @@ const MainMenu = ({ navigation }) => {
                   borderColor: "white",
                 }}
                 android_ripple={{ color: "black" }}
+
+                //***Navigate Event*** 
                 onPress={()=>{
                   navigation.navigate('MonthlyDetails',{
                     gotYear:currentYearSelected,

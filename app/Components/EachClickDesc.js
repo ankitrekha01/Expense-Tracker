@@ -28,11 +28,11 @@ const EachClickDesc = ({ route, navigation }) => {
           navigation={navigation}
           eachDetail={eachDetail}
         />
-        <DetailDesc
+        {/* <DetailDesc
           route={route}
           navigation={navigation}
           eachDetail={eachDetail}
-        />
+        /> */}
       </ScrollView>
     </View>
   );

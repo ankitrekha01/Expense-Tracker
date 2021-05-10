@@ -11,6 +11,8 @@ import AddInfo from "./MainMenu/AddInfo";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useFocusEffect } from "@react-navigation/native";
+
 /*
 Red button colors
 #0b3954
@@ -33,18 +35,30 @@ Green
 
 const MonthlyDetails = ({ route, navigation }) => {
   const [storedData, setStoredData] = useState("");
-  const [RemovedKey, setRemovedKey] = useState(
-    0
-  ); /* this was added so that in real time, when we remove a day, its removed from the menu  */
+  const [RemovedKey, setRemovedKey] = useState(0);
+  /* this was added so that in real time, when we remove a day, its removed from the menu  */
+
+  var currentMonthChosen = route.params.gotMonth;
+  currentMonthChosen= currentMonthChosen.slice(0,3)
+  const currentYearChosen = route.params.gotYear;
 
   //useFocusEffect is used instead of useEffect, as useeffect was not working
-  useEffect(() => {
-    AsyncStorage.getAllKeys().then((data) => {
-      if (JSON.stringify(storedData) !== JSON.stringify(data)) {
-        setStoredData(data);
-      }
-    });
-  }, [storedData, RemovedKey]);
+  useFocusEffect(
+    React.useCallback(() => {
+      console.log(storedData)
+      AsyncStorage.getAllKeys().then((data) => {
+        if (JSON.stringify(storedData) !== JSON.stringify(data)) {
+          var result = data.filter(
+            (str) =>
+              str.includes(currentMonthChosen) &&
+              str.includes(currentYearChosen)
+          );
+          console.log(result)
+          setStoredData(result);
+        }
+      });
+    }, [RemovedKey])
+  );
 
   //Removing the month duplicates and making an array of it, to use it render months
   var getMonth = () => {
@@ -81,6 +95,7 @@ const MonthlyDetails = ({ route, navigation }) => {
     <View
       style={{
         height: "100%",
+        paddingTop: 30,
       }}
     >
       <ScrollView>
