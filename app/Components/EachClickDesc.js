@@ -10,8 +10,7 @@ import {
 } from "react-native";
 import HeaderTitle from "./EachClickDesc/headerTitle";
 import DetailDesc from "./EachClickDesc/detailDesc";
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const EachClickDesc = ({ route, navigation }) => {
   const [eachDetail, setEachDetail] = useState("");
@@ -24,8 +23,16 @@ const EachClickDesc = ({ route, navigation }) => {
   const content = (
     <View style={styles.container}>
       <ScrollView>
-        <HeaderTitle route={route} navigation={navigation} eachDetail={eachDetail} />
-        <DetailDesc route={route} navigation={navigation} eachDetail={eachDetail} />
+        <HeaderTitle
+          route={route}
+          navigation={navigation}
+          eachDetail={eachDetail}
+        />
+        <DetailDesc
+          route={route}
+          navigation={navigation}
+          eachDetail={eachDetail}
+        />
       </ScrollView>
     </View>
   );

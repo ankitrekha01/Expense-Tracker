@@ -6,6 +6,7 @@ import Home from "./app/Components/Home";
 import MainMenu from "./app/Components/MainMenu";
 import EachClickDesc from "./app/Components/EachClickDesc";
 import StartScreen from "./app/Components/StartScreen";
+import MonthlyDetails from './app/Components/MonthlyDetails'
 
 import { FontAwesome } from "@expo/vector-icons";
 
@@ -23,6 +24,11 @@ function App() {
         <Stack.Screen
           name="Home"
           component={Home}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="MonthlyDetails"
+          component={MonthlyDetails}
           options={{ headerShown: false }}
         />
         <Stack.Screen

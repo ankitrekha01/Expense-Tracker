@@ -31,12 +31,12 @@ Green
 //   console.log(data);
 // };
 
-const MonthlyDetails = ({ navigation }) => {
+const MonthlyDetails = ({ route, navigation }) => {
   const [storedData, setStoredData] = useState("");
   const [RemovedKey, setRemovedKey] = useState(
     0
   ); /* this was added so that in real time, when we remove a day, its removed from the menu  */
-  
+
   //useFocusEffect is used instead of useEffect, as useeffect was not working
   useEffect(() => {
     AsyncStorage.getAllKeys().then((data) => {
@@ -46,36 +46,33 @@ const MonthlyDetails = ({ navigation }) => {
     });
   }, [storedData, RemovedKey]);
 
-
   //Removing the month duplicates and making an array of it, to use it render months
   var getMonth = () => {
     let arrayData = [];
-    let k=0;
+    let k = 0;
     for (var i = 0; i < storedData.length; i++) {
-      k = new Date(storedData[i]).getMonth()
-      arrayData.push(k)
+      k = new Date(storedData[i]).getMonth();
+      arrayData.push(k);
     }
     //To remove the duplicates in an array
     let uniqueArrayData = arrayData.filter((c, index) => {
       return arrayData.indexOf(c) === index;
-  });
+    });
     return uniqueArrayData;
   };
 
-
-  
   function data() {
     /* this was made because the state array was not working */
     let arrayData = [];
     for (var i = 0; i < storedData.length; i++) {
       arrayData.push(storedData[i]);
     }
-    console.log(arrayData);
+    // console.log(arrayData);
     return arrayData.reverse();
   }
 
   function removeItem(key) {
-    console.log(key);
+    // console.log(key);
     AsyncStorage.removeItem(key);
     setRemovedKey(key);
   }
@@ -89,7 +86,7 @@ const MonthlyDetails = ({ navigation }) => {
       <ScrollView>
         <View>
           {data().map((dateKey) => {
-            console.log(getMonth())
+            // console.log(getMonth());
             var renderRightActions = (progress) => {
               return (
                 <TouchableOpacity

@@ -262,6 +262,12 @@ const MainMenu = ({ navigation }) => {
                   borderColor: "white",
                 }}
                 android_ripple={{ color: "black" }}
+                onPress={()=>{
+                  navigation.navigate('MonthlyDetails',{
+                    gotYear:currentYearSelected,
+                    gotMonth:dateKey,
+                  })
+                }}
               >
                 <Text style={{ color: "#ffd166", fontSize: 24 }}>
                   {dateKey}
