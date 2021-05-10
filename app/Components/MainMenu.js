@@ -39,7 +39,7 @@ Green
 
 const MainMenu = ({ navigation }) => {
   const scrollViewRef = useRef();
-  var [detail, setDetail]= useState();
+  var [detail, setDetail] = useState({});
   const [currentYearSelected, changeYearSelected] = useState(
     new Date().getFullYear()
   );
@@ -49,14 +49,13 @@ const MainMenu = ({ navigation }) => {
 
   //useFocusEffect is used instead of useEffect, as useeffect was not working
   useFocusEffect(
-    React.useCallback(()=>{
+    React.useCallback(() => {
       AsyncStorage.getAllKeys().then((data) => {
-      if (JSON.stringify(storedData) !== JSON.stringify(data)) {
-        setStoredData(data);
-      }
-    });
-    
-    },[storedData, RemovedKey,currentYearSelected]) 
+        if (JSON.stringify(storedData) !== JSON.stringify(data)) {
+          setStoredData(data);
+        }
+      });
+    }, [storedData, RemovedKey, currentYearSelected])
   );
 
   //Removing the month duplicates and making an array of it, to use it render months
@@ -105,7 +104,7 @@ const MainMenu = ({ navigation }) => {
     return monthName;
   };
 
-  function incomeExpensesForEachMonth(){
+  function incomeExpensesForEachMonth() {
     var getAllMonthKey = [];
     const monthNames = [
       "January",
@@ -128,31 +127,31 @@ const MainMenu = ({ navigation }) => {
         getAllMonthKey.push(storedData[i]);
       }
     }
-    obj[currentYearSelected]={};
+    obj[currentYearSelected] = {};
     getMonth().forEach((e) => {
       obj[currentYearSelected][e] = {
         Income: 0,
         Expenses: 0,
       };
     });
-    var a=0;
+    var a = 0;
     getAllMonthKey.forEach((e) => {
-      
-      var x= monthNames[new Date(e).getMonth()];
+      var x = monthNames[new Date(e).getMonth()];
 
       AsyncStorage.getItem(e).then((data) => {
         a++;
         var y = JSON.parse(data).transc;
         var z = JSON.parse(data).exp;
-        obj[currentYearSelected][x][y] = parseInt(obj[currentYearSelected][x][y]) + parseInt(z);
-        if(a===getAllMonthKey.length){
-          if(JSON.stringify(detail)!==JSON.stringify(obj)){
-            setDetail(obj)
+        obj[currentYearSelected][x][y] =
+          parseInt(obj[currentYearSelected][x][y]) + parseInt(z);
+        if (a === getAllMonthKey.length) {
+          if (JSON.stringify(detail) !== JSON.stringify(obj)) {
+            setDetail(obj);
           }
         }
       });
     });
-  };
+  }
 
   //To get the years
   var getYear = () => {
@@ -247,8 +246,8 @@ const MainMenu = ({ navigation }) => {
             flexDirection: "row",
             flexWrap: "wrap",
           }}
-        >{incomeExpensesForEachMonth()}
-        {console.log(detail)}
+        >
+          {incomeExpensesForEachMonth()}
           {getMonth().map((dateKey) => {
             return (
               <Pressable
@@ -268,10 +267,18 @@ const MainMenu = ({ navigation }) => {
                   {dateKey}
                 </Text>
                 <Text style={{ color: "#06d6a0", fontSize: 15 }}>
-                  Total Income : 200
+                  Total Income :{" "}
+                  {Object.keys(detail).length != 0 &&
+                  detail[currentYearSelected] != undefined
+                    ? detail[currentYearSelected][dateKey]["Income"]
+                    : ""}
                 </Text>
-                <Text style={{ color: "red", fontSize: 15 }}>
-                  Total Expense : 200
+                <Text style={{ color: "#EF476F", fontSize: 15 }}>
+                  Total Expense :{" "}
+                  {Object.keys(detail).length != 0 &&
+                  detail[currentYearSelected] != undefined
+                    ? detail[currentYearSelected][dateKey]["Expenses"]
+                    : ""}
                 </Text>
               </Pressable>
             );
