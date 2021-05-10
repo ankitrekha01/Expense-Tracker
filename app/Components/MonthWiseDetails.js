@@ -36,7 +36,8 @@ const MonthWiseDetails = ({ navigation }) => {
   const [RemovedKey, setRemovedKey] = useState(
     0
   ); /* this was added so that in real time, when we remove a day, its removed from the menu  */
-
+  
+  //useFocusEffect is used instead of useEffect, as useeffect was not working
   useEffect(() => {
     AsyncStorage.getAllKeys().then((data) => {
       if (JSON.stringify(storedData) !== JSON.stringify(data)) {

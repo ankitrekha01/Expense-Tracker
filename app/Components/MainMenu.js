@@ -13,6 +13,8 @@ import AddInfo from "./MainMenu/AddInfo";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useFocusEffect } from "@react-navigation/native";
+import { get } from "react-native/Libraries/Utilities/PixelRatio";
 /*
 Red button colors
 #0b3954
@@ -37,27 +39,35 @@ Green
 
 const MainMenu = ({ navigation }) => {
   const scrollViewRef = useRef();
+  var [detail, setDetail]= useState();
+  const [currentYearSelected, changeYearSelected] = useState(
+    new Date().getFullYear()
+  );
   const [storedData, setStoredData] = useState("");
   const [RemovedKey, setRemovedKey] = useState(0);
   /* this was added so that in real time, when we remove a day, its removed from the menu  */
 
-  useEffect(() => {
-    AsyncStorage.getAllKeys().then((data) => {
+  //useFocusEffect is used instead of useEffect, as useeffect was not working
+  useFocusEffect(
+    React.useCallback(()=>{
+      AsyncStorage.getAllKeys().then((data) => {
       if (JSON.stringify(storedData) !== JSON.stringify(data)) {
         setStoredData(data);
       }
-      console.log(storedData);
     });
-  }, [storedData, RemovedKey]);
+    
+    },[storedData, RemovedKey,currentYearSelected]) 
+  );
 
   //Removing the month duplicates and making an array of it, to use it render months
   var getMonth = () => {
     let arrayData = [];
-    let k = 0;
     let monthName = [];
     for (var i = 0; i < storedData.length; i++) {
-      k = new Date(storedData[i]).getMonth();
-      arrayData.push(k);
+      //This line gives us the current year months
+      if (currentYearSelected == new Date(storedData[i]).getFullYear()) {
+        arrayData.push(new Date(storedData[i]).getMonth());
+      }
     }
     //To remove the duplicates in an array
     let uniqueArrayData = arrayData.filter((c, index) => {
@@ -92,8 +102,56 @@ const MainMenu = ({ navigation }) => {
         monthName.push("December ");
       }
     });
-
     return monthName;
+  };
+
+  function incomeExpensesForEachMonth(){
+    var getAllMonthKey = [];
+    const monthNames = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    var obj = {};
+    for (var i = 0; i < storedData.length; i++) {
+      //This line gives us the current year months
+      if (currentYearSelected == new Date(storedData[i]).getFullYear()) {
+        getAllMonthKey.push(storedData[i]);
+      }
+    }
+    obj[currentYearSelected]={};
+    getMonth().forEach((e) => {
+      obj[currentYearSelected][e] = {
+        Income: 0,
+        Expenses: 0,
+      };
+    });
+    var a=0;
+    getAllMonthKey.forEach((e) => {
+      
+      var x= monthNames[new Date(e).getMonth()];
+
+      AsyncStorage.getItem(e).then((data) => {
+        a++;
+        var y = JSON.parse(data).transc;
+        var z = JSON.parse(data).exp;
+        obj[currentYearSelected][x][y] = parseInt(obj[currentYearSelected][x][y]) + parseInt(z);
+        if(a===getAllMonthKey.length){
+          if(JSON.stringify(detail)!==JSON.stringify(obj)){
+            setDetail(obj)
+          }
+        }
+      });
+    });
   };
 
   //To get the years
@@ -162,9 +220,15 @@ const MainMenu = ({ navigation }) => {
                 style={{
                   height: "100%",
                   width: 100,
-                  backgroundColor: "#06d6a0", //lightgreen
+                  backgroundColor:
+                    currentYearSelected == datakey ? "#EF476F" : "#06d6a0", //lightgreen
                   alignItems: "center",
                   justifyContent: "center",
+                }}
+                onPress={() => {
+                  if (currentYearSelected != datakey) {
+                    changeYearSelected(datakey);
+                  }
                 }}
               >
                 <Text style={{ fontSize: 25, color: "#073b4c" }}>
@@ -183,7 +247,8 @@ const MainMenu = ({ navigation }) => {
             flexDirection: "row",
             flexWrap: "wrap",
           }}
-        >
+        >{incomeExpensesForEachMonth()}
+        {console.log(detail)}
           {getMonth().map((dateKey) => {
             return (
               <Pressable
