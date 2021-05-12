@@ -6,26 +6,29 @@ const DetailDesc = (props) => {
   return (
     <View
       style={{
-        backgroundColor: "black",
+        backgroundColor: "#212529",
         height: 500,
-        borderTopRightRadius: 30,
-        borderTopLeftRadius: 30,
-        marginTop: -20,
+        borderTopRightRadius: 20,
+        borderTopLeftRadius: 20,
+        marginTop: -25,
+        width:'100%',
+        alignSelf: 'center',
       }}
     >
       <View
         style={{
-          marginTop: 20,
           justifyContent: "center",
           alignItems: "center",
           width: "50%",
           alignSelf: "center",
+          paddingBottom:10
         }}
       >
         <Text
           style={{
             fontSize: 30,
-            color: "white",
+            color: "#f8f9fa",
+            fontWeight:'bold'
           }}
         >
           {props.eachDetail.date}
@@ -33,17 +36,18 @@ const DetailDesc = (props) => {
       </View>
       <View
         style={{
-          marginTop: 40,
-          width: "90%",
+          marginTop: 30,
+          width: "92%",
           alignSelf: "center",
         }}
       >
         <Text
           style={{
-            color: "white",
+            color: "#dee2e6",
             paddingStart: 20,
             paddingEnd: 20,
             fontSize: 25,
+            textAlign:'center'
           }}
         >
           {props.eachDetail.desc}

@@ -39,7 +39,7 @@ Green
 
 const MainMenu = ({ navigation }) => {
   const scrollViewRef = useRef();
-  var [detail, setDetail] = useState({});
+  const [detail, setDetail] = useState({});
   const [currentYearSelected, changeYearSelected] = useState(
     new Date().getFullYear()
   );
@@ -55,7 +55,7 @@ const MainMenu = ({ navigation }) => {
           setStoredData(data);
         }
       });
-    }, [storedData, RemovedKey, currentYearSelected])
+    }, [storedData, RemovedKey, currentYearSelected, detail])
   );
 
   //Removing the month duplicates and making an array of it, to use it render months
@@ -78,7 +78,7 @@ const MainMenu = ({ navigation }) => {
       if (e == 0) {
         monthName.push("January");
       } else if (e == 1) {
-        monthName.push("Feburary");
+        monthName.push("February");
       } else if (e == 2) {
         monthName.push("March");
       } else if (e == 3) {
@@ -136,12 +136,12 @@ const MainMenu = ({ navigation }) => {
     });
     var a = 0;
     getAllMonthKey.forEach((e) => {
-      var x = monthNames[new Date(e).getMonth()];
-
       AsyncStorage.getItem(e).then((data) => {
         a++;
+        var x = monthNames[new Date(e).getMonth()];
         var y = JSON.parse(data).transc;
         var z = JSON.parse(data).exp;
+        // *********undefined condtion set karde*************** 
         obj[currentYearSelected][x][y] =
           parseInt(obj[currentYearSelected][x][y]) + parseInt(z);
         if (a === getAllMonthKey.length) {

@@ -42,7 +42,8 @@ const HeaderTitle = (props) => {
     },
   ];
 
-  const colors = ["#8800cc", "#aa00ff", "#cc66ff", "#eeccff"];
+  const colors = ["#343a40", "#6c757d", "#adb5bd", "#dee2e6"];
+  //https://coolors.co/f8f9fa-e9ecef-dee2e6-ced4da-adb5bd-6c757d-495057-343a40-212529
   const keys = ["apples", "bananas", "cherries", "dates"];
   return (
     <View>
@@ -51,24 +52,18 @@ const HeaderTitle = (props) => {
           position: "absolute",
           alignItems: "center",
           flex: 1,
-          backgroundColor: "#170623",
+          backgroundColor: "#212529", //dark black
           borderBottomRightRadius: 20,
           borderBottomLeftRadius: 20,
           width: "100%",
           height: 200,
-          flexDirection:'row'
         }}
       >
-        <View
-          style={{
-            marginBottom: 20,
-            width: "60%",
-          }}
-        >
+        <View style={{}}>
           <Text
             style={{
-              fontSize: 35,
-              color: "#f2c249", //white https://coolors.co/170623-660099-8800cc-f5f5f5-f2c249-e5a910
+              fontSize: 36,
+              color: "#f8f9fa", //white https://coolors.co/170623-660099-8800cc-f5f5f5-f2c249-e5a910
               fontWeight: "bold",
               textAlign: "center",
             }}
@@ -76,16 +71,23 @@ const HeaderTitle = (props) => {
             {props.eachDetail.title}
           </Text>
         </View>
-        <View style={{width:'40%'}}>
+        <View
+          style={{
+            
+            padding: 10,
+            paddingLeft: 20,
+            paddingRight: 20,
+            marginTop: 20,
+          }}
+        >
           <Text
             style={{
-              fontSize: 30,
+              fontSize: 35,
               color:
-                props.eachDetail.transc == "Income" ? "#b8fe02" : "#f46056",
-              //https://coolors.co/f46056-26ba95-b8fe02-b80062-8800cc
-              marginBottom: 40,
+                props.eachDetail.transc == "Income" ? "#63cf82" : "#fd7c82",
+              //https://coolors.co/ecf0f3-fd7c82-b5030c-3f5ce8-63cf82-03fefe-221529-212529
               fontWeight: "bold",
-              alignSelf: 'center',
+              alignSelf: "center",
             }}
           >
             ₹{props.eachDetail.exp}
@@ -97,7 +99,7 @@ const HeaderTitle = (props) => {
         style={{
           height: 200,
           paddingVertical: 16,
-          width: "98%",
+          width: "96%",
           alignSelf: "center",
         }}
         data={data}

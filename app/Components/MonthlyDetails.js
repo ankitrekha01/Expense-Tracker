@@ -7,12 +7,12 @@ import {
   Animated,
   StyleSheet,
 } from "react-native";
-import AddInfo from "./MainMenu/AddInfo";
+import AddInfo from "./MonthlyDetails/AddInfo";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useFocusEffect } from "@react-navigation/native";
-
+// import ScrollBarMonth from "./MonthlyDetails/ScrollBarMonth";
 /*
 Red button colors
 #0b3954
@@ -39,13 +39,12 @@ const MonthlyDetails = ({ route, navigation }) => {
   /* this was added so that in real time, when we remove a day, its removed from the menu  */
 
   var currentMonthChosen = route.params.gotMonth;
-  currentMonthChosen= currentMonthChosen.slice(0,3)
+  currentMonthChosen = currentMonthChosen.slice(0, 3);
   const currentYearChosen = route.params.gotYear;
 
   //useFocusEffect is used instead of useEffect, as useeffect was not working
   useFocusEffect(
     React.useCallback(() => {
-      console.log(storedData)
       AsyncStorage.getAllKeys().then((data) => {
         if (JSON.stringify(storedData) !== JSON.stringify(data)) {
           var result = data.filter(
@@ -53,27 +52,11 @@ const MonthlyDetails = ({ route, navigation }) => {
               str.includes(currentMonthChosen) &&
               str.includes(currentYearChosen)
           );
-          console.log(result)
           setStoredData(result);
         }
       });
     }, [RemovedKey])
   );
-
-  //Removing the month duplicates and making an array of it, to use it render months
-  var getMonth = () => {
-    let arrayData = [];
-    let k = 0;
-    for (var i = 0; i < storedData.length; i++) {
-      k = new Date(storedData[i]).getMonth();
-      arrayData.push(k);
-    }
-    //To remove the duplicates in an array
-    let uniqueArrayData = arrayData.filter((c, index) => {
-      return arrayData.indexOf(c) === index;
-    });
-    return uniqueArrayData;
-  };
 
   function data() {
     /* this was made because the state array was not working */
@@ -98,6 +81,7 @@ const MonthlyDetails = ({ route, navigation }) => {
         paddingTop: 30,
       }}
     >
+      
       <ScrollView>
         <View>
           {data().map((dateKey) => {
