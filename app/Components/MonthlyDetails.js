@@ -12,7 +12,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useFocusEffect } from "@react-navigation/native";
-// import ScrollBarMonth from "./MonthlyDetails/ScrollBarMonth";
+import ScrollBarMonth from "./MonthlyDetails/ScrollBarMonth";
 /*
 Red button colors
 #0b3954
@@ -81,7 +81,11 @@ const MonthlyDetails = ({ route, navigation }) => {
         paddingTop: 30,
       }}
     >
-      
+      <ScrollBarMonth
+        currentYearChosen={currentYearChosen}
+        currentMonthChosen={currentMonthChosen}
+        RemovedKey={RemovedKey}
+      />
       <ScrollView>
         <View>
           {data().map((dateKey) => {
