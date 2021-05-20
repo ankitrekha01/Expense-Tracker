@@ -15,7 +15,6 @@ const ScrollBarMonth = (props) => {
 
   useFocusEffect(
     React.useCallback(() => {
-      console.log(monthsOfSelectedYear)
       AsyncStorage.getAllKeys().then((data) => {
         data= data.filter((str)=>str.includes(props.currentYearChosen))
         if (JSON.stringify(monthsOfSelectedYear) !== JSON.stringify(data)) {
@@ -58,10 +57,46 @@ const ScrollBarMonth = (props) => {
           // }
           // stateSet();
         }
+        return ;
       });
     }, [props.RemovedKey,monthsOfSelectedYear])
   );
-  return <View></View>;
+
+  const allMonths = ()=>{
+      const monthNames = [
+              "January",
+              "February",
+              "March",
+              "April",
+              "May",
+              "June",
+              "July",
+              "August",
+              "September",
+              "October",
+              "November",
+              "December"]
+    var result = [];
+    var final = [];
+    if(monthsOfSelectedYear.length!=0){
+      monthsOfSelectedYear.forEach((monthdate)=>{
+        result.push(new Date(monthdate).getMonth())
+        result = result.filter((c, index) => {
+          return result.indexOf(c) === index;
+        });
+        result = result.sort((a, b) => a - b);
+      })
+      result.forEach((e)=>final.push(monthNames[e]))
+      return final;
+    }
+  }
+
+  const content =  (
+    <View>
+      
+    </View>
+  );
+  return content;
 };
 
 export default ScrollBarMonth;

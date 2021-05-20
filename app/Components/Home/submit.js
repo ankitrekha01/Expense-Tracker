@@ -16,7 +16,9 @@ const Submit = (props) => {
           exp: props.exp,
           transc: props.transc,
         });
-        await AsyncStorage.setItem(props.date.toLocaleString(), jsonValue);
+        await AsyncStorage.setItem(props.date.toLocaleString(), jsonValue).then(()=>{
+          props.navigation.navigate("MainMenu");
+        });
         console.log("working");
       } catch (e) {
         console.log("Not working");
@@ -39,7 +41,7 @@ const Submit = (props) => {
       props.changeTransc("");
       props.changeDesc("");
       props.changeSubmit(false);
-      props.navigation.navigate("MainMenu");
+      
     }
   };
 

@@ -55,6 +55,7 @@ const MainMenu = ({ navigation }) => {
           setStoredData(data);
         }
       });
+      return ;
     }, [storedData, RemovedKey, currentYearSelected, detail])
   );
 
@@ -275,18 +276,22 @@ const MainMenu = ({ navigation }) => {
                   {dateKey}
                 </Text>
                 <Text style={{ color: "#06d6a0", fontSize: 15 }}>
-                  Total Income :{" "}
-                  {Object.keys(detail).length != 0 &&
-                  detail[currentYearSelected] != undefined
+                  Total Income :0
+
+                  {/* detail is not able to render after tab switches */}
+
+                  
+                  {/* {Object.keys(detail).length != 0 &&
+                  detail[currentYearSelected][dateKey]["Income"] != undefined
                     ? detail[currentYearSelected][dateKey]["Income"]
-                    : ""}
+                    : ""} */}
                 </Text>
                 <Text style={{ color: "#EF476F", fontSize: 15 }}>
-                  Total Expense :{" "}
-                  {Object.keys(detail).length != 0 &&
+                  Total Expense :0
+                  {/* {Object.keys(detail).length != 0 &&
                   detail[currentYearSelected] != undefined
                     ? detail[currentYearSelected][dateKey]["Expenses"]
-                    : ""}
+                    : ""} */}
                 </Text>
               </Pressable>
             );
