@@ -16,7 +16,7 @@ const ScrollBarMonth = (props) => {
   useFocusEffect(
     React.useCallback(() => {
       AsyncStorage.getAllKeys().then((data) => {
-        data= data.filter((str)=>str.includes(props.currentYearChosen))
+        data = data.filter((str) => str.includes(props.currentYearChosen));
         if (JSON.stringify(monthsOfSelectedYear) !== JSON.stringify(data)) {
           chngMonths(data);
           // async function resultant(){
@@ -57,43 +57,80 @@ const ScrollBarMonth = (props) => {
           // }
           // stateSet();
         }
-        return ;
+        return;
       });
-    }, [props.RemovedKey,monthsOfSelectedYear])
+    }, [props.RemovedKey, monthsOfSelectedYear])
   );
 
-  const allMonths = ()=>{
-      const monthNames = [
-              "January",
-              "February",
-              "March",
-              "April",
-              "May",
-              "June",
-              "July",
-              "August",
-              "September",
-              "October",
-              "November",
-              "December"]
+  const allMonths = () => {
+    const monthNames = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
     var result = [];
     var final = [];
-    if(monthsOfSelectedYear.length!=0){
-      monthsOfSelectedYear.forEach((monthdate)=>{
-        result.push(new Date(monthdate).getMonth())
+    if (monthsOfSelectedYear.length != 0) {
+      monthsOfSelectedYear.forEach((monthdate) => {
+        result.push(new Date(monthdate).getMonth());
         result = result.filter((c, index) => {
           return result.indexOf(c) === index;
         });
         result = result.sort((a, b) => a - b);
-      })
-      result.forEach((e)=>final.push(monthNames[e]))
+      });
+      result.forEach((e) => final.push(monthNames[e]));
       return final;
     }
-  }
+  };
 
-  const content =  (
-    <View>
-      
+  const content = (
+    <View
+      style={{
+        height: "10%",
+        width:'80%',
+        alignSelf:'center'
+      }}
+    >
+      {(() => {
+        if (allMonths() != undefined) {
+          return (
+            //**** Scroll Bar ****
+            <ScrollView
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+            >
+              {allMonths().map((monthsInYear) => {
+                return (
+                  <TouchableOpacity
+                  key={monthsInYear}
+                  style={{
+                    height: "100%",
+                    width: 100,
+                    backgroundColor: "lightgreen",
+                    // currentYearSelected == datakey ? "#EF476F" : "#06d6a0", //lightgreen
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Text style={{ fontSize: 20, color: "#073b4c" }}>
+                    {monthsInYear}
+                  </Text>
+                </TouchableOpacity>
+                )
+              })}
+            </ScrollView>
+          );
+        }
+      })()}
     </View>
   );
   return content;

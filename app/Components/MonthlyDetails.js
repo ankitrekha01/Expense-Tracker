@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   View,
   ScrollView,
@@ -34,35 +34,41 @@ Green
 // };
 
 const MonthlyDetails = ({ route, navigation }) => {
-  const [storedData, setStoredData] = useState("");
+  const [monthlyData, setMonthlyData] = useState("");
   const [RemovedKey, setRemovedKey] = useState(0);
   /* this was added so that in real time, when we remove a day, its removed from the menu  */
-
   var currentMonthChosen = route.params.gotMonth;
   currentMonthChosen = currentMonthChosen.slice(0, 3);
   const currentYearChosen = route.params.gotYear;
 
   //useFocusEffect is used instead of useEffect, as useeffect was not working
-  useFocusEffect(
-    React.useCallback(() => {
-      AsyncStorage.getAllKeys().then((data) => {
-        if (JSON.stringify(storedData) !== JSON.stringify(data)) {
+  useEffect(() => {
+    // let _isMounted=true;
+    AsyncStorage.getAllKeys().then((data) => {
+      // if (_isMounted) {
+        if (JSON.stringify(monthlyData) !== JSON.stringify(data)) {
           var result = data.filter(
             (str) =>
               str.includes(currentMonthChosen) &&
               str.includes(currentYearChosen)
           );
-          setStoredData(result);
+          setMonthlyData(result);
         }
-      });
-    }, [RemovedKey])
-  );
+      // }
+    });
+    return () => {
+      // ComponentWillUnmount in Class Component
+      // _isMounted = false;
+      setMonthlyData('')
+      setRemovedKey('')
+    };
+  }, [RemovedKey]);
 
   function data() {
     /* this was made because the state array was not working */
     let arrayData = [];
-    for (var i = 0; i < storedData.length; i++) {
-      arrayData.push(storedData[i]);
+    for (var i = 0; i < monthlyData.length; i++) {
+      arrayData.push(monthlyData[i]);
     }
     // console.log(arrayData);
     return arrayData.reverse();
@@ -81,6 +87,8 @@ const MonthlyDetails = ({ route, navigation }) => {
         paddingTop: 30,
       }}
     >
+      {console.log(monthlyData)}
+      {/* //***** Scroll Bar ******* */}
       <ScrollBarMonth
         currentYearChosen={currentYearChosen}
         currentMonthChosen={currentMonthChosen}
@@ -122,6 +130,7 @@ const MonthlyDetails = ({ route, navigation }) => {
                 <TouchableOpacity
                   key={dateKey}
                   onPress={() => {
+                    // ****** Navigate Event ****
                     navigation.navigate("EachClickDesc", {
                       key: dateKey,
                     });

@@ -15,6 +15,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const EachClickDesc = ({ route, navigation }) => {
   const [eachDetail, setEachDetail] = useState("");
   const keyForStorage = route.params.key;
+  // ********* Storage*******
   const a = AsyncStorage.getItem(keyForStorage);
   a.then((e) => {
     setEachDetail(JSON.parse(e));
