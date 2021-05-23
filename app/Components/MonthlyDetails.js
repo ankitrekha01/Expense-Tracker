@@ -37,11 +37,15 @@ const MonthlyDetails = ({ route, navigation }) => {
   const [monthlyData, setMonthlyData] = useState("");
   const [RemovedKey, setRemovedKey] = useState(0);
   /* this was added so that in real time, when we remove a day, its removed from the menu  */
-  var currentMonthChosen = route.params.gotMonth;
-  currentMonthChosen = currentMonthChosen.slice(0, 3);
+  var currentMonthChosenParams = route.params.gotMonth;
+  currentMonthChosenParams = currentMonthChosenParams.slice(0, 3);
+  const [currentMonthChosen, chngCurrentMonth] = useState(currentMonthChosenParams)
   const currentYearChosen = route.params.gotYear;
 
   //useFocusEffect is used instead of useEffect, as useeffect was not working
+
+
+  // ********Cleanup not done yet *********
   useEffect(() => {
     // let _isMounted=true;
     AsyncStorage.getAllKeys().then((data) => {
@@ -62,7 +66,7 @@ const MonthlyDetails = ({ route, navigation }) => {
       setMonthlyData('')
       setRemovedKey('')
     };
-  }, [RemovedKey]);
+  }, [RemovedKey,currentMonthChosen]);
 
   function data() {
     /* this was made because the state array was not working */
@@ -87,15 +91,16 @@ const MonthlyDetails = ({ route, navigation }) => {
         paddingTop: 30,
       }}
     >
-      {console.log(monthlyData)}
+      {/* {console.log(monthlyData)} */}
       {/* //***** Scroll Bar ******* */}
       <ScrollBarMonth
         currentYearChosen={currentYearChosen}
         currentMonthChosen={currentMonthChosen}
+        chngCurrentMonth = {chngCurrentMonth}
         RemovedKey={RemovedKey}
       />
       <ScrollView>
-        <View>
+        <View style={{marginTop:15}}>
           {data().map((dateKey) => {
             // console.log(getMonth());
             var renderRightActions = (progress) => {
@@ -107,9 +112,7 @@ const MonthlyDetails = ({ route, navigation }) => {
                     justifyContent: "center",
                     alignContent: "center",
                     alignItems: "center",
-                    backgroundColor: "red",
-                    borderBottomWidth: 5,
-                    borderBottomColor: "white",
+                    backgroundColor: "#eb5c68",
                   }}
                   onPress={() => {
                     removeItem(dateKey);
@@ -138,17 +141,16 @@ const MonthlyDetails = ({ route, navigation }) => {
                 >
                   <View
                     style={{
-                      backgroundColor: "#80ed99",
+                      backgroundColor: "#343a40",
                       height: 80,
-                      borderBottomWidth: 5,
-                      borderBottomColor: "white",
-                      justifyContent: "center",
+                      marginBottom:4,
+                      justifyContent: "center", 
                     }}
                   >
                     <Text
                       style={{
                         fontSize: 25,
-                        color: "#38a3a5",
+                        color: "#e9ecef",
                         textAlign: "center",
                       }}
                     >

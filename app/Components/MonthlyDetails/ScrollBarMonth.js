@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   View,
   ScrollView,
@@ -10,9 +10,13 @@ import {
 import { useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+//allMonth() return an array in which it 
+//contains name like April and currentMonth gives like Apr
+
+
 const ScrollBarMonth = (props) => {
   const [monthsOfSelectedYear, chngMonths] = useState([]);
-
+  const scrollViewBarRef = useRef();
   useFocusEffect(
     React.useCallback(() => {
       AsyncStorage.getAllKeys().then((data) => {
@@ -92,40 +96,75 @@ const ScrollBarMonth = (props) => {
     }
   };
 
+  //https://coolors.co/f8f9fa-e9ecef-dee2e6-ced4da-adb5bd-6c757d-495057-343a40-212529
+
   const content = (
     <View
       style={{
         height: "10%",
-        width:'80%',
-        alignSelf:'center'
+        width: "80%",
+        alignSelf: "center",
       }}
     >
       {(() => {
         if (allMonths() != undefined) {
+          //Isko baad me hatana padega, because slice is creating 
+          //a alot problem as we break and again have to join
+          var shortMon = {
+            "Jan":'January',
+            "Feb":'February',
+            "Mar":"March",
+            "Apr":"April",
+            "May":'May',
+            'Jun':'June',
+            'Jul':"July",
+            "Sep":"September",
+            "Oct":"October",
+            "Nov":"November",
+            "Dec":"December"
+          }
+          
+          var moveScrollBar = allMonths().indexOf(shortMon[props.currentMonthChosen])
           return (
             //**** Scroll Bar ****
             <ScrollView
+              ref={scrollViewBarRef}
               horizontal={true}
+              pagingEnabled = {true}
               showsHorizontalScrollIndicator={false}
+              onContentSizeChange={() => {
+                scrollViewBarRef.current.scrollTo({
+                  x: moveScrollBar * 96,
+                  y: 0,
+                  animated: true,
+                });
+              }}
             >
               {allMonths().map((monthsInYear) => {
+                var slicedMonth = monthsInYear.slice(0, 3);
                 return (
                   <TouchableOpacity
-                  key={monthsInYear}
-                  style={{
-                    height: "100%",
-                    width: 100,
-                    backgroundColor: "lightgreen",
-                    // currentYearSelected == datakey ? "#EF476F" : "#06d6a0", //lightgreen
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Text style={{ fontSize: 20, color: "#073b4c" }}>
-                    {monthsInYear}
-                  </Text>
-                </TouchableOpacity>
-                )
+                    key={monthsInYear}
+                    style={{
+                      height: "100%",
+                      width: 96,
+                      backgroundColor:
+                        slicedMonth == props.currentMonthChosen
+                          ? "#6c757d"
+                          : "#212529", //black color
+                      // currentYearSelected == datakey ? "#EF476F" : "#06d6a0", //lightgreen
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                    onPress={()=>{
+                      props.chngCurrentMonth(slicedMonth)
+                    }}
+                  >
+                    <Text style={{ fontSize: 17, color: "#f8f9fa" }}>
+                      {monthsInYear}
+                    </Text>
+                  </TouchableOpacity>
+                );
               })}
             </ScrollView>
           );
