@@ -130,7 +130,7 @@ const ScrollBarMonth = (props) => {
             <ScrollView
               ref={scrollViewBarRef}
               horizontal={true}
-              pagingEnabled = {true}
+              // pagingEnabled = {true}
               showsHorizontalScrollIndicator={false}
               onContentSizeChange={() => {
                 scrollViewBarRef.current.scrollTo({

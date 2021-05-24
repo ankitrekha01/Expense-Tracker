@@ -7,12 +7,13 @@ import {
   Animated,
   StyleSheet,
 } from "react-native";
-import AddInfo from "./MonthlyDetails/AddInfo";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useFocusEffect } from "@react-navigation/native";
 import ScrollBarMonth from "./MonthlyDetails/ScrollBarMonth";
+import AddInfo from "./MonthlyDetails/AddInfo";
+import TotalExpMonth from "./MonthlyDetails/TotalExpMonth";
 /*
 Red button colors
 #0b3954
@@ -39,34 +40,34 @@ const MonthlyDetails = ({ route, navigation }) => {
   /* this was added so that in real time, when we remove a day, its removed from the menu  */
   var currentMonthChosenParams = route.params.gotMonth;
   currentMonthChosenParams = currentMonthChosenParams.slice(0, 3);
-  const [currentMonthChosen, chngCurrentMonth] = useState(currentMonthChosenParams)
+  const [currentMonthChosen, chngCurrentMonth] = useState(
+    currentMonthChosenParams
+  );
   const currentYearChosen = route.params.gotYear;
 
   //useFocusEffect is used instead of useEffect, as useeffect was not working
-
 
   // ********Cleanup not done yet *********
   useEffect(() => {
     // let _isMounted=true;
     AsyncStorage.getAllKeys().then((data) => {
       // if (_isMounted) {
-        if (JSON.stringify(monthlyData) !== JSON.stringify(data)) {
-          var result = data.filter(
-            (str) =>
-              str.includes(currentMonthChosen) &&
-              str.includes(currentYearChosen)
-          );
-          setMonthlyData(result);
-        }
+      if (JSON.stringify(monthlyData) !== JSON.stringify(data)) {
+        var result = data.filter(
+          (str) =>
+            str.includes(currentMonthChosen) && str.includes(currentYearChosen)
+        );
+        setMonthlyData(result);
+      }
       // }
     });
     return () => {
       // ComponentWillUnmount in Class Component
       // _isMounted = false;
-      setMonthlyData('')
-      setRemovedKey('')
+      setMonthlyData("");
+      setRemovedKey("");
     };
-  }, [RemovedKey,currentMonthChosen]);
+  }, [RemovedKey, currentMonthChosen]);
 
   function data() {
     /* this was made because the state array was not working */
@@ -96,11 +97,18 @@ const MonthlyDetails = ({ route, navigation }) => {
       <ScrollBarMonth
         currentYearChosen={currentYearChosen}
         currentMonthChosen={currentMonthChosen}
-        chngCurrentMonth = {chngCurrentMonth}
+        chngCurrentMonth={chngCurrentMonth}
         RemovedKey={RemovedKey}
       />
+      <TotalExpMonth
+        monthlyData={monthlyData}
+        setMonthlyData={setMonthlyData}
+        currentMonthChosen={currentMonthChosen}
+        chngCurrentMonth={chngCurrentMonth}
+        currentYearChosen={currentYearChosen}
+      />
       <ScrollView>
-        <View style={{marginTop:15}}>
+        <View style={{ marginTop: 15 }}>
           {data().map((dateKey) => {
             // console.log(getMonth());
             var renderRightActions = (progress) => {
@@ -143,8 +151,8 @@ const MonthlyDetails = ({ route, navigation }) => {
                     style={{
                       backgroundColor: "#343a40",
                       height: 80,
-                      marginBottom:4,
-                      justifyContent: "center", 
+                      marginBottom: 4,
+                      justifyContent: "center",
                     }}
                   >
                     <Text
