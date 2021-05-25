@@ -10,6 +10,8 @@ import {
 import { useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+//https://coolors.co/f8f9fa-e9ecef-dee2e6-ced4da-adb5bd-6c757d-495057-343a40-212529
+
 const TotalExpMonth = (props) => {
   const [sum, setSum] = useState();
   var data;
