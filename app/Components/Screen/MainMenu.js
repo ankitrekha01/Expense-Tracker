@@ -9,12 +9,11 @@ import {
   Pressable,
   FlatList,
 } from "react-native";
-import AddInfo from "./MainMenu/AddInfo";
+import AddInfo from "../MainMenu/AddInfo";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useFocusEffect } from "@react-navigation/native";
-import { get } from "react-native/Libraries/Utilities/PixelRatio";
 /*
 Red button colors
 #0b3954

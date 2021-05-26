@@ -11,7 +11,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-import image from "../Components/images.jpg";
+import image from "../images.jpg";
 
 function StartScreen({ navigation }) {
   const animatedView = useRef(new Animated.Value(0)).current; 

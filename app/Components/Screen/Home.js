@@ -8,12 +8,12 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
-import DatePicker from "./Home/Date";
-import Title from "./Home/Title";
-import Expenses from "./Home/Expenses";
-import Description from "./Home/Desc";
-import Submit from "./Home/submit";
-import Transaction from "./Home/transaction";
+import DatePicker from "../Home/Date";
+import Title from "../Home/Title";
+import Expenses from "../Home/Expenses";
+import Description from "../Home/Desc";
+import Submit from "../Home/submit";
+import Transaction from "../Home/transaction";
 import { Ionicons } from "@expo/vector-icons";
 
 const Home = ({ navigation }) => {

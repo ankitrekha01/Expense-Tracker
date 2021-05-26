@@ -10,10 +10,9 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useFocusEffect } from "@react-navigation/native";
-import ScrollBarMonth from "./MonthlyDetails/ScrollBarMonth";
-import AddInfo from "./MonthlyDetails/AddInfo";
-import TotalExpMonth from "./MonthlyDetails/TotalExpMonth";
+import ScrollBarMonth from "../MonthlyDetails/ScrollBarMonth";
+import AddInfo from "../MonthlyDetails/AddInfo";
+import TotalExpMonth from "../MonthlyDetails/TotalExpMonth";
 /*
 Red button colors
 #0b3954

@@ -8,8 +8,8 @@ import {
   StatusBar,
   Platform,
 } from "react-native";
-import HeaderTitle from "./EachClickDesc/headerTitle";
-import DetailDesc from "./EachClickDesc/detailDesc";
+import HeaderTitle from "../EachClickDesc/headerTitle";
+import DetailDesc from "../EachClickDesc/detailDesc";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const EachClickDesc = ({ route, navigation }) => {
