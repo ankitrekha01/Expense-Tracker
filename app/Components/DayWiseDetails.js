@@ -8,8 +8,10 @@ import {
   StyleSheet,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Swipeable from "react-native-gesture-handler/Swipeable";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import DetailOfDate from "./DayWiseDetails/DetailsOfDate";
-import SpentInDay from "./DayWiseDetails/SpentInDay"
+import SpentInDay from "./DayWiseDetails/SpentInDay";
 import AddInfo from "./DayWiseDetails/AddInfo";
 
 //https://coolors.co/f8f9fa-e9ecef-dee2e6-ced4da-adb5bd-6c757d-495057-343a40-212529
@@ -22,13 +24,15 @@ const DayWiseDetails = memo(({ route, navigation }) => {
   const [getCurrentKeys, setCurrentKeys] = useState([]);
   //It is array which stores object in form of
   //{key:load[i],details:JSON.parse(k)}
+
+  const swipeableRef = useRef(null);
   var load;
 
   //Make PArt of the code
   useEffect(() => {
     // console.log('hello')
     getKeysOfDate();
-  }, [currentDate,RemovedKey]);
+  }, [currentDate, RemovedKey]);
 
   //** Gives us the keys of the current date
   async function getKeysOfDate() {
@@ -75,38 +79,97 @@ const DayWiseDetails = memo(({ route, navigation }) => {
     setRemovedKey(key);
   }
 
+  //To use the methods of swipeable we use useRef hook
+  //We used this fucntion as our swipeable never get closed as date changes
+  const closeSwipeable = () => {
+    swipeableRef.current.close();
+  };
+
+  //Main function of swipeableRight which does the ez magic
+  function swipeRightStateChange() {
+    increaseDate();
+    closeSwipeable();
+  }
+
+  function swipeLeftStateChange() {
+    decreaseDate();
+    closeSwipeable();
+  }
+
+  //We used this function because if it remains empty swipeablewillOpen function wont work
+  var renderRightActions = () => {
+    return (
+      <TouchableOpacity
+        style={{
+          height: 80,
+          width: "1%",
+        }}
+      ></TouchableOpacity>
+    );
+  };
+  var renderLeftActions = () => {
+    return (
+      <TouchableOpacity
+        style={{
+          height: 80,
+          width: "1%",
+        }}
+      ></TouchableOpacity>
+    );
+  };
+
   return (
     <View
       style={{
         height: "100%",
       }}
     >
-      {/* {console.log(getCurrentKeys)} */}
-      <View style={styles.container}>
-        <TouchableOpacity style={styles.leftArrow} onPress={decreaseDate}>
-          <Text style={styles.textLeftArrow}>{"☚"}</Text>
-        </TouchableOpacity>
-        <View>
-          <Text style={styles.dateText}>{currentDate}</Text>
+      <Swipeable
+        style={{
+          height: "100%",
+          backgroundColor: "lightblue",
+        }}
+        ref={swipeableRef}
+        friction={3}
+        onSwipeableRightWillOpen={swipeRightStateChange}
+        onSwipeableLeftWillOpen={swipeLeftStateChange}
+        renderRightActions={renderRightActions}
+        renderLeftActions={renderLeftActions}
+      >
+        <View
+          style={{
+            height: "100%",
+            width: "100%",
+          }}
+        >
+          {/* {console.log(getCurrentKeys)} */}
+          <View style={styles.container}>
+            <TouchableOpacity style={styles.leftArrow} onPress={decreaseDate}>
+              <Text style={styles.textLeftArrow}>{"☚"}</Text>
+            </TouchableOpacity>
+            <View>
+              <Text style={styles.dateText}>{currentDate}</Text>
+            </View>
+            <TouchableOpacity style={styles.leftArrow} onPress={increaseDate}>
+              <Text style={styles.textLeftArrow}>{"➩"}</Text>
+            </TouchableOpacity>
+          </View>
+          {/* <Text>{getCurrentKeys}</Text> */}
+          <SpentInDay
+            navigation={navigation}
+            currentDate={currentDate}
+            getCurrentKeys={getCurrentKeys}
+          />
+          <DetailOfDate
+            navigation={navigation}
+            currentDate={currentDate}
+            setCurrentDate={setCurrentDate}
+            getCurrentKeys={getCurrentKeys}
+            removeItem={removeItem}
+          />
+          <AddInfo navigation={navigation} />
         </View>
-        <TouchableOpacity style={styles.leftArrow} onPress={increaseDate}>
-          <Text style={styles.textLeftArrow}>{"➩"}</Text>
-        </TouchableOpacity>
-      </View>
-      {/* <Text>{getCurrentKeys}</Text> */}
-      <SpentInDay 
-        navigation={navigation}
-        currentDate={currentDate}
-        getCurrentKeys={getCurrentKeys}
-      />
-      <DetailOfDate
-        navigation={navigation}
-        currentDate={currentDate}
-        setCurrentDate={setCurrentDate}
-        getCurrentKeys={getCurrentKeys}
-        removeItem = {removeItem}
-      />
-      <AddInfo navigation={navigation} />
+      </Swipeable>
     </View>
   );
 });
@@ -130,12 +193,12 @@ const styles = StyleSheet.create({
   textLeftArrow: {
     fontSize: 40,
     fontWeight: "bold",
-    color:'#dee2e6'
+    color: "#dee2e6",
   },
   dateText: {
     fontSize: 25,
     fontWeight: "bold",
-    color:'#e9ecef'
+    color: "#e9ecef",
   },
 });
 
