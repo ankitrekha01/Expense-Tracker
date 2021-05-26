@@ -9,10 +9,10 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Swipeable from "react-native-gesture-handler/Swipeable";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import DetailOfDate from "./DayWiseDetails/DetailsOfDate";
-import SpentInDay from "./DayWiseDetails/SpentInDay";
-import AddInfo from "./DayWiseDetails/AddInfo";
+import DetailOfDate from "../DayWiseDetails/DetailsOfDate";
+import SliderWeekMonth from "../DayWiseDetails/SliderWeekMonth"
+import SpentInDay from "../DayWiseDetails/SpentInDay";
+import AddInfo from "../DayWiseDetails/AddInfo";
 
 //https://coolors.co/f8f9fa-e9ecef-dee2e6-ced4da-adb5bd-6c757d-495057-343a40-212529
 
@@ -113,6 +113,9 @@ const DayWiseDetails = memo(({ route, navigation }) => {
         style={{
           height: 80,
           width: "1%",
+          //this(width) gives us at what width it will close
+          //It also gives at how much
+          //we have to swipe so that function triggers
         }}
       ></TouchableOpacity>
     );
@@ -155,6 +158,7 @@ const DayWiseDetails = memo(({ route, navigation }) => {
             </TouchableOpacity>
           </View>
           {/* <Text>{getCurrentKeys}</Text> */}
+          <SliderWeekMonth />
           <SpentInDay
             navigation={navigation}
             currentDate={currentDate}
@@ -182,6 +186,8 @@ const styles = StyleSheet.create({
     marginTop: 30,
     backgroundColor: "#495057",
     alignItems: "center",
+    elevation: 5,
+    shadowColor: "blue",
   },
   leftArrow: {
     height: "100%",

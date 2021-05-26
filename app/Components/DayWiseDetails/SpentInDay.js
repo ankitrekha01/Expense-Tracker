@@ -45,23 +45,25 @@ const SpentInDay = (props) => {
           return (
             <View style={styles.container}>
               <View
-                styles={{
+                style={{
                   height: "50%",
-                  backgroundColor: "white",
-                  width: "50%",
+                  width: "100%",
+                  flexDirection:'row',
+                  justifyContent:'space-evenly',
+                  alignItems: 'center',
                 }}
               >
                 <Text style={styles.income}>
-                  Income: ₹{allDetails().incomeDetails}
+                  ₹{allDetails().incomeDetails}▲
                 </Text>
-                <Text style={styles.income}>
-                  Expenses: ₹{allDetails().expensesDetails}
+                <Text style={styles.expense}>
+                ₹{allDetails().expensesDetails}▼
                 </Text>
               </View>
               <Text style={styles.net}>
                    ₹
                   {allDetails().incomeDetails - allDetails().expensesDetails}
-                </Text>
+              </Text>
             </View>
           );
         }
@@ -76,21 +78,23 @@ const styles = StyleSheet.create({
     shadowColor: "blue",
     height: 150,
     elevation: 5,
-    borderRadius: 10,
-    width: "90%",
+    // borderRadius: 10,
+    width: "100%",
     alignSelf: "center",
-    marginTop: 30,
     alignItems: "center",
-    alignContent: "center",
   },
+  //https://coolors.co/624e9d-00a8f0-34c38f-f1b44c-f46a6a-343a40-74788d
   income: {
     fontSize: 20,
-    color: "white",
+    color: "#34c38f",
+  },
+  expense:{
+    fontSize: 20,
+    color: "#f46a6a",
   },
   net: {
-    marginTop: 20,
     fontSize: 40,
-    color: "white",
+    color: "#f1b44c",
   },
 });
 
