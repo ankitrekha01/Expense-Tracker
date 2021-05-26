@@ -19,7 +19,7 @@ const AddInfo = (props) => {
       }}
     >
       <LinearGradient
-        colors={["black", "#434343"]}
+        colors={["#495057", "#434343"]}
         style={{
           height: 50,
           width: "20%",
@@ -36,7 +36,7 @@ const AddInfo = (props) => {
           }}
           onPress={() => props.navigation.navigate("Home")}
         >
-          <Entypo name="squared-plus" size={35} color="white" />
+          <Entypo name="squared-plus" size={35} color="#e9ecef" />
         </TouchableOpacity>
       </LinearGradient>
     </View>

@@ -17,7 +17,7 @@ const Submit = (props) => {
           transc: props.transc,
         });
         await AsyncStorage.setItem(props.date.toLocaleString(), jsonValue).then(()=>{
-          props.navigation.navigate("MainMenu");
+          props.navigation.navigate("DayWiseDetails");
         });
         console.log("working");
       } catch (e) {

@@ -18,6 +18,7 @@ const DetailOfDate = (props) => {
   return (
     <ScrollView style={styles.scrollContainer}>
       {(() => {
+        //******This gives us NO DATA FOUND PAGE******
         if (
           props.getCurrentKeys.length == 0 ||
           props.getCurrentKeys == undefined
@@ -29,6 +30,7 @@ const DetailOfDate = (props) => {
             </View>
           );
         } else {
+          //******THIS GIVES US THE MAIN DIV OF DETAILS******
           return props.getCurrentKeys.map((data) => {
             var renderRightActions = (progress) => {
               return (
@@ -99,9 +101,10 @@ const DetailOfDate = (props) => {
 const styles = StyleSheet.create({
   scrollContainer: {
     width: "100%",
+    marginTop:30
   },
   imageContainer: {
-    marginTop: 65,
+    marginTop: 30,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -111,7 +114,7 @@ const styles = StyleSheet.create({
     resizeMode: "stretch",
     alignSelf: "center",
     justifyContent: "center",
-    opacity:0.6
+    opacity: 0.6,
   },
   imageText: {
     color: "#212529",
@@ -121,7 +124,7 @@ const styles = StyleSheet.create({
     textShadowOffset: { width: 1, height: 2 },
     textShadowRadius: 5,
     textShadowColor: "grey",
-    opacity:0.6
+    opacity: 0.6,
   },
 });
 

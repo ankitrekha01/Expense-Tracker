@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import DetailOfDate from "./DayWiseDetails/DetailsOfDate";
+import SpentInDay from "./DayWiseDetails/SpentInDay"
 import AddInfo from "./DayWiseDetails/AddInfo";
 
 //https://coolors.co/f8f9fa-e9ecef-dee2e6-ced4da-adb5bd-6c757d-495057-343a40-212529
@@ -17,8 +18,8 @@ const DayWiseDetails = memo(({ route, navigation }) => {
   const [currentDate, setCurrentDate] = useState(
     new Date().toLocaleDateString()
   );
-  const [getCurrentKeys, setCurrentKeys] = useState([]);
   const [RemovedKey, setRemovedKey] = useState(0);
+  const [getCurrentKeys, setCurrentKeys] = useState([]);
   //It is array which stores object in form of
   //{key:load[i],details:JSON.parse(k)}
   var load;
@@ -93,6 +94,11 @@ const DayWiseDetails = memo(({ route, navigation }) => {
         </TouchableOpacity>
       </View>
       {/* <Text>{getCurrentKeys}</Text> */}
+      <SpentInDay 
+        navigation={navigation}
+        currentDate={currentDate}
+        getCurrentKeys={getCurrentKeys}
+      />
       <DetailOfDate
         navigation={navigation}
         currentDate={currentDate}
