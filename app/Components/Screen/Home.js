@@ -16,7 +16,7 @@ import Submit from "../Home/submit";
 import Transaction from "../Home/transaction";
 import Category from "../Home/Category";
 import CategoryList from "../Home/CategoryList";
-import { Ionicons } from "@expo/vector-icons";
+// import { Ionicons } from "@expo/vector-icons";
 
 const Home = ({ navigation }) => {
   const [title, changeTitle] = useState("");
