@@ -10,7 +10,7 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import DetailOfDate from "../DayWiseDetails/DetailsOfDate";
-import SliderWeekMonth from "../DayWiseDetails/SliderWeekMonth"
+import SliderWeekMonth from "../DayWiseDetails/SliderWeekMonth";
 import SpentInDay from "../DayWiseDetails/SpentInDay";
 import AddInfo from "../DayWiseDetails/AddInfo";
 
@@ -158,7 +158,7 @@ const DayWiseDetails = memo(({ route, navigation }) => {
             </TouchableOpacity>
           </View>
           {/* <Text>{getCurrentKeys}</Text> */}
-          <SliderWeekMonth />
+          <SliderWeekMonth navigation={navigation} />
           <SpentInDay
             navigation={navigation}
             currentDate={currentDate}

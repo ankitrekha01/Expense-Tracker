@@ -33,7 +33,7 @@ const DatePicker = (props) => {
       <Text
         style={{
           alignItems: "center",
-          fontSize: 25,
+          fontSize: 20,
           alignSelf: "flex-start",
         }}
       >

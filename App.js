@@ -1,13 +1,14 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { View, StyleSheet } from "react-native";
+import { View } from "react-native";
 import Home from "./app/Components/Screen/Home";
 import MainMenu from "./app/Components/Screen/MainMenu";
 import EachClickDesc from "./app/Components/Screen/EachClickDesc";
 import StartScreen from "./app/Components/Screen/StartScreen";
 import MonthlyDetails from "./app/Components/Screen/MonthlyDetails";
 import DayWiseDetails from "./app/Components/Screen/DayWiseDetails";
+// import WeeklyDetails from "./app/Components/Screen/WeeklyDetails";
 
 import { FontAwesome } from "@expo/vector-icons";
 
@@ -16,7 +17,7 @@ const Stack = createStackNavigator();
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="DayWiseDetails" >
+      <Stack.Navigator initialRouteName="Home" >
         <Stack.Screen
           name="StartScreen"
           component={StartScreen}
@@ -37,6 +38,11 @@ function App() {
           component={DayWiseDetails}
           options={{ headerShown: false }}
         />
+        {/* <Stack.Screen
+          name="WeeklyDetails"
+          component={WeeklyDetails}
+          options={{ headerShown: false }}
+        /> */}
         <Stack.Screen
           name="MainMenu"
           component={MainMenu}

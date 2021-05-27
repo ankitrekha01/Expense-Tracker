@@ -22,7 +22,7 @@ const Expenses = (props) => {
       <Text
         style={{
           alignItems: "center",
-          fontSize: 25,
+          fontSize: 20,
           alignSelf: "flex-start",
           color:props.submit && props.exp=='' ? '#dc3545' : "black",
           fontWeight:props.submit && props.exp=='' ? 'bold' : 'normal'
@@ -37,6 +37,7 @@ const Expenses = (props) => {
           width: "95%",
           borderWidth: 1,
           borderColor: colorBorder ? "#2580f0" : "black",
+          marginTop: 10,
         }}
       >
         <FontAwesome

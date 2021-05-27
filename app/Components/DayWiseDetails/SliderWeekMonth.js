@@ -8,17 +8,17 @@ import {
   StyleSheet,
 } from "react-native";
 
-const SliderWeekMonth = ()=>{
+const SliderWeekMonth = ({navigation})=>{
     return(
         <View style={styles.container}>
-            <TouchableOpacity style={styles.touchContainer}>
-                <Text style={styles.text}>Weekly</Text>
-            </TouchableOpacity>
             <TouchableOpacity style={styles.touchContainer}>
                 <Text style={styles.text}>Monthly</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.touchContainer}>
                 <Text style={styles.text}>Yearly</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.touchContainer}>
+                <Text style={styles.text}>Custom</Text>
             </TouchableOpacity>
         </View>
     )

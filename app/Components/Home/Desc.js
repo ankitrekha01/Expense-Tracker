@@ -21,7 +21,7 @@ const Description = (props) => {
         <Text
         style={{
           alignItems: "center",
-          fontSize: 25,
+          fontSize: 20,
           alignSelf: "flex-start",
           color:props.submit && props.desc=='' ? '#dc3545' : "black",
           fontWeight:props.submit && props.desc=='' ? 'bold' : 'normal'
@@ -41,7 +41,7 @@ const Description = (props) => {
           borderColor: colorBorder ? "#2580f0" : "black",
         }}
         multiline={true}
-        numberOfLines={6}
+        numberOfLines={5}
         placeholder="Add a Description"
         onChangeText={changed}
         value={props.desc}

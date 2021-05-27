@@ -14,6 +14,7 @@ import Expenses from "../Home/Expenses";
 import Description from "../Home/Desc";
 import Submit from "../Home/submit";
 import Transaction from "../Home/transaction";
+import Category from "../Home/Category";
 import { Ionicons } from "@expo/vector-icons";
 
 const Home = ({ navigation }) => {
@@ -23,10 +24,11 @@ const Home = ({ navigation }) => {
   const [transc, changeTransc] = useState("");
   const [date, setDate] = useState(new Date());
   const [submit, changeSubmit] = useState(false);
+  const [category, changeCategory] = useState('Select a category');
 
   const content = (
     <View style={styles.home}>
-      <View>
+      {/* <View>
         <TouchableOpacity
           onPress={() => navigation.navigate("MainMenu")}
           style={{
@@ -51,9 +53,10 @@ const Home = ({ navigation }) => {
             Back
           </Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <Title title={title} changeTitle={changeTitle} submit = {submit} />
+        <Category category={category} changeCategory={changeCategory} />
         <DatePicker date={date} setDate={setDate} />
         <Expenses exp={exp} changeExp={changeExp} submit = {submit} />
         <Description desc={desc} changeDesc={changeDesc} submit = {submit} />
@@ -72,6 +75,8 @@ const Home = ({ navigation }) => {
           changeExp={changeExp}
           changeTransc={changeTransc}
           changeDesc={changeDesc}
+          category={category}
+          changeCategory={changeCategory}
         />
       </ScrollView>
     </View>

@@ -20,7 +20,7 @@ const Title = (props) => {
       <Text
         style={{
           alignItems: "center",
-          fontSize: 25,
+          fontSize: 20,
           alignSelf: "flex-start",
           color:props.submit && props.title=='' ? '#dc3545' : "black",
           fontWeight:props.submit && props.title=='' ? 'bold' : 'normal'
@@ -44,6 +44,7 @@ const Title = (props) => {
         value={props.title}
         onFocus={borderColorFocus}
         onBlur={borderColorBlur}
+        maxLength={20}
       />
     </View>
   );
