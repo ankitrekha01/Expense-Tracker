@@ -6,12 +6,12 @@ import {
   Platform,
   TouchableOpacity,
 } from "react-native";
-import DateTimePicker from "@react-native-community/datetimepicker"; //Calendar 
+import DateTimePicker from "@react-native-community/datetimepicker"; //Calendar
 import { Foundation } from "@expo/vector-icons";
 
 const DatePicker = (props) => {
   const [show, setShow] = useState(false);
-  const [startDateColor, setSDC] = useState(false)
+  const [startDateColor, setSDC] = useState(false);
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || props.date;
@@ -25,7 +25,7 @@ const DatePicker = (props) => {
 
   const showDatepicker = () => {
     showMode("date");
-    setSDC(true)
+    setSDC(true);
   };
 
   return (
@@ -40,12 +40,14 @@ const DatePicker = (props) => {
         Date
       </Text>
       <View style={styles.container}>
-        <Text style={{ fontSize: 18,color:startDateColor?'black':'grey' }}>
+        <Text
+          style={{ fontSize: 18, color: startDateColor ? "black" : "grey" }}
+        >
           {
             props.date.toLocaleDateString() /* todatstring needed to be added else was giving error  */
           }
         </Text>
-        <TouchableOpacity onPress={showDatepicker}>
+        <TouchableOpacity onPress={showDatepicker} disabled={props.showList}>
           <Foundation name="calendar" size={50} color="#495057" />
         </TouchableOpacity>
       </View>
@@ -66,7 +68,7 @@ const DatePicker = (props) => {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    paddingStart: 20,
+    paddingStart: 18,
   },
   container: {
     flexDirection: "row",

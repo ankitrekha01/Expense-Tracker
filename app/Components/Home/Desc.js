@@ -56,7 +56,7 @@ const Description = (props) => {
 const styles = StyleSheet.create({
   desc: {
     flex: 2,
-    paddingStart: 20, /*This is for to get it centered from left and right side */
+    paddingStart: 18, /*This is for to get it centered from left and right side */
   },
 });
 

@@ -69,7 +69,7 @@ const Expenses = (props) => {
 const styles = StyleSheet.create({
   expenses: {
     flex: 1,
-    paddingStart: 20,
+    paddingStart: 18,
   },
   input: {},
 });

@@ -15,6 +15,7 @@ import Description from "../Home/Desc";
 import Submit from "../Home/submit";
 import Transaction from "../Home/transaction";
 import Category from "../Home/Category";
+import CategoryList from "../Home/CategoryList";
 import { Ionicons } from "@expo/vector-icons";
 
 const Home = ({ navigation }) => {
@@ -24,7 +25,12 @@ const Home = ({ navigation }) => {
   const [transc, changeTransc] = useState("");
   const [date, setDate] = useState(new Date());
   const [submit, changeSubmit] = useState(false);
-  const [category, changeCategory] = useState('Select a category');
+  const [category, changeCategory] = useState("Select a category");
+  const [showList, setList] = useState(true);
+  
+  //showList plays a very imp role in transaction.js date.js 
+  //title.js and submit.js, so beforing changeing it make sure 
+  //u take care of all this issues also
 
   const content = (
     <View style={styles.home}>
@@ -54,17 +60,45 @@ const Home = ({ navigation }) => {
           </Text>
         </TouchableOpacity>
       </View> */}
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <Title title={title} changeTitle={changeTitle} submit = {submit} />
-        <Category category={category} changeCategory={changeCategory} />
-        <DatePicker date={date} setDate={setDate} />
-        <Expenses exp={exp} changeExp={changeExp} submit = {submit} />
-        <Description desc={desc} changeDesc={changeDesc} submit = {submit} />
-        <Transaction transc={transc} changeTransc={changeTransc} submit = {submit} />
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        style={{ opacity: showList ? 0.3 : 1 }}
+      >
+        <Title
+          title={title}
+          changeTitle={changeTitle}
+          submit={submit}
+          showList={showList}
+        />
+        <Category
+          category={category}
+          changeCategory={changeCategory}
+          showList={showList}
+          setList={setList}
+        />
+        <DatePicker date={date} setDate={setDate} showList={showList} />
+        <Expenses
+          exp={exp}
+          changeExp={changeExp}
+          submit={submit}
+          showList={showList}
+        />
+        <Description
+          desc={desc}
+          changeDesc={changeDesc}
+          submit={submit}
+          showList={showList}
+        />
+        <Transaction
+          transc={transc}
+          changeTransc={changeTransc}
+          submit={submit}
+          showList={showList}
+        />
         <Submit
           navigation={navigation}
-          submit = {submit}
-          changeSubmit = {changeSubmit}
+          submit={submit}
+          changeSubmit={changeSubmit}
           title={title}
           date={date}
           exp={exp}
@@ -77,8 +111,10 @@ const Home = ({ navigation }) => {
           changeDesc={changeDesc}
           category={category}
           changeCategory={changeCategory}
+          showList={showList}
         />
       </ScrollView>
+      <CategoryList showList={showList} setList={setList} />
     </View>
   );
   return content;

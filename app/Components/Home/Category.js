@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { TouchableOpacity, StyleSheet, View, Text } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import CategoryList from "./Category/CategoryList";
 
 const Category = (props) => {
     const [startCategoryColor, setSCC] = useState(false)
@@ -31,7 +30,7 @@ const Category = (props) => {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    paddingStart: 20,
+    paddingStart: 18,
   },
   container: {
     flexDirection: "row",

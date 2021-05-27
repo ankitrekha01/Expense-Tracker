@@ -45,6 +45,7 @@ const Title = (props) => {
         onFocus={borderColorFocus}
         onBlur={borderColorBlur}
         maxLength={20}
+        editable={!props.showList}
       />
     </View>
   );
@@ -54,7 +55,7 @@ const Title = (props) => {
 const styles = StyleSheet.create({
   title: {
     flex: 1,
-    paddingStart: 20,
+    paddingStart: 18,
   },
 });
 

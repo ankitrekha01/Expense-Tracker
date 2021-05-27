@@ -47,7 +47,7 @@ const Submit = (props) => {
 
   const content = (
     <View style={styles.submit}>
-      <TouchableOpacity style={styles.submitButton} onPress={redirect}>
+      <TouchableOpacity style={styles.submitButton} onPress={redirect} disabled={props.showList}>
         <Text style={{ fontSize: 20, color: "white", fontWeight: "bold" }}>
           Submit
         </Text>

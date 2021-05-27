@@ -19,6 +19,7 @@ const Transaction = (props) => {
         onPress={()=>{
           props.changeTransc('Income')
         }}
+        disabled={props.showList}
       >
         <Text style={{ fontSize: 20,color:'white' }}>Income</Text>
       </TouchableOpacity>
@@ -37,6 +38,7 @@ const Transaction = (props) => {
         onPress={()=>{
           props.changeTransc('Expenses')
         }}
+        disabled={props.showList}
       >
         <Text style={{ fontSize: 20,color:'white' }}>Expenses</Text>
       </TouchableOpacity>
@@ -50,7 +52,7 @@ const styles = StyleSheet.create({
     width: "90%",
     flexDirection: "row",
     justifyContent: "space-around",
-    marginLeft: 20,
+    marginLeft: 18,
     marginTop:20
   },
 });
