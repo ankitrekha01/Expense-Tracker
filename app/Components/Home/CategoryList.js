@@ -64,6 +64,10 @@ const CategoryList = (props) => {
                 <TouchableOpacity
                   key={categoryName.name}
                   style={styles.listContainer}
+                  onPress={()=>{
+                      props.changeCategory(categoryName.name)
+                      props.setList(false);
+                  }}
                 >
                   <Image
                     style={{

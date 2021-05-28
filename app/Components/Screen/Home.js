@@ -26,12 +26,12 @@ const Home = ({ navigation }) => {
   const [date, setDate] = useState(new Date());
   const [submit, changeSubmit] = useState(false);
   const [category, changeCategory] = useState("Select a category");
-  const [showList, setList] = useState(true);
-  
-  //showList plays a very imp role in transaction.js date.js 
-  //title.js and submit.js, so beforing changeing it make sure 
-  //u take care of all this issues also
-
+  const [showList, setList] = useState(false);
+  //                **********************************
+  //           showList plays a very imp role in transaction.js date.js
+  //           title.js and submit.js, so beforing changeing it make sure
+  //           u take care of all this issues also
+  //                 **********************************
   const content = (
     <View style={styles.home}>
       {/* <View>
@@ -60,61 +60,79 @@ const Home = ({ navigation }) => {
           </Text>
         </TouchableOpacity>
       </View> */}
-      <ScrollView
-        contentContainerStyle={{ flexGrow: 1 }}
-        style={{ opacity: showList ? 0.3 : 1 }}
+      <View
+        style={{ height: "100%", width: "100%" }}
+        //            ***********************************
+        //       This helps to minimize the category list when we clic
+        //       on anything beside the list view
+        //             ***********************************
+        onStartShouldSetResponder={(event) => {
+          if (showList) {
+            setList(false);
+          }
+        }}
       >
-        <Title
-          title={title}
-          changeTitle={changeTitle}
-          submit={submit}
-          showList={showList}
-        />
-        <Category
-          category={category}
-          changeCategory={changeCategory}
-          showList={showList}
-          setList={setList}
-        />
-        <DatePicker date={date} setDate={setDate} showList={showList} />
-        <Expenses
-          exp={exp}
-          changeExp={changeExp}
-          submit={submit}
-          showList={showList}
-        />
-        <Description
-          desc={desc}
-          changeDesc={changeDesc}
-          submit={submit}
-          showList={showList}
-        />
-        <Transaction
-          transc={transc}
-          changeTransc={changeTransc}
-          submit={submit}
-          showList={showList}
-        />
-        <Submit
-          navigation={navigation}
-          submit={submit}
-          changeSubmit={changeSubmit}
-          title={title}
-          date={date}
-          exp={exp}
-          desc={desc}
-          transc={transc}
-          changeTitle={changeTitle}
-          setDate={setDate}
-          changeExp={changeExp}
-          changeTransc={changeTransc}
-          changeDesc={changeDesc}
-          category={category}
-          changeCategory={changeCategory}
-          showList={showList}
-        />
-      </ScrollView>
-      <CategoryList showList={showList} setList={setList} />
+        <ScrollView
+          contentContainerStyle={{ flexGrow: 1 }}
+          style={{ opacity: showList ? 0.3 : 1 }}
+        >
+          <Title
+            title={title}
+            changeTitle={changeTitle}
+            submit={submit}
+            showList={showList}
+          />
+          <Category
+            category={category}
+            changeCategory={changeCategory}
+            showList={showList}
+            setList={setList}
+          />
+          <DatePicker date={date} setDate={setDate} showList={showList} />
+          <Expenses
+            exp={exp}
+            changeExp={changeExp}
+            submit={submit}
+            showList={showList}
+          />
+          <Description
+            desc={desc}
+            changeDesc={changeDesc}
+            submit={submit}
+            showList={showList}
+          />
+          <Transaction
+            transc={transc}
+            changeTransc={changeTransc}
+            submit={submit}
+            showList={showList}
+          />
+          <Submit
+            navigation={navigation}
+            submit={submit}
+            changeSubmit={changeSubmit}
+            title={title}
+            date={date}
+            exp={exp}
+            desc={desc}
+            transc={transc}
+            changeTitle={changeTitle}
+            setDate={setDate}
+            changeExp={changeExp}
+            changeTransc={changeTransc}
+            changeDesc={changeDesc}
+            category={category}
+            changeCategory={changeCategory}
+            showList={showList}
+          />
+        </ScrollView>
+      </View>
+      <CategoryList
+        showList={showList}
+        setList={setList}
+        category={category}
+        changeCategory={changeCategory}
+      />
     </View>
   );
   return content;

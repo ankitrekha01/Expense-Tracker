@@ -3,7 +3,16 @@ import { TouchableOpacity, StyleSheet, View, Text } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
 const Category = (props) => {
-    const [startCategoryColor, setSCC] = useState(false)
+    const [startCategoryColor, setSCC] = useState(false);
+
+
+    function openCategory(){
+      if(!props.showList){
+        props.setList(true)
+        setSCC(true)
+      }
+    }
+
   return (
     <View style={styles.mainContainer}>
       <Text
@@ -15,7 +24,7 @@ const Category = (props) => {
       >
         Category
       </Text>
-      <TouchableOpacity style={styles.container}>
+      <TouchableOpacity style={styles.container} onPress={openCategory}>
         <Text
           style={{ fontSize: 18, color: startCategoryColor ? "black" : "grey" }}
         >
