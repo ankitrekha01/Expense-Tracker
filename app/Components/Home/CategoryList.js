@@ -57,7 +57,8 @@ const CategoryList = (props) => {
   if (props.showList) {
     return (
       <View style={styles.container}>
-        <View style={{ height: "84%" }}>
+        <Text style={styles.categoryText}>Category</Text>
+        <View style={{ height: "80%" }}>
           <ScrollView showsVerticalScrollIndicator={false}>
             {categoryList.map((categoryName) => {
               return (
@@ -124,7 +125,12 @@ const styles = StyleSheet.create({
     top: "15%",
     elevation: 5,
     shadowColor: "black",
-    justifyContent: "center",
+  },
+  categoryText:{
+    height:'10%',
+    textAlign:'center',
+    fontSize:30,
+    color:'#f57600'
   },
   listContainer: {
     height: 60,
@@ -132,6 +138,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     backgroundColor: "#6C757D",
     flexDirection: "row",
+    marginTop:10
   },
 });
 
